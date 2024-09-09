@@ -1,4 +1,4 @@
-import Users from "../database/models/users.model";
+import User from "../database/models/users.model";
 import bcrypt from "bcrypt";
 import { httpStatus } from "../utils/httpStatus";
 import { RegisterType } from "../utils/types/register.type";
@@ -12,9 +12,9 @@ export interface IAuthService {
 }
 
 export class AuthService implements IAuthService {
-  private _model: typeof Users;
+  private _model: typeof User;
 
-  constructor(model: typeof Users) {
+  constructor(model: typeof User) {
     this._model = model;
   }
 

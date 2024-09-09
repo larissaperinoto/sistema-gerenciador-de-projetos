@@ -2,6 +2,7 @@ import {
   IsDateString,
   IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
 } from "class-validator";
@@ -69,7 +70,7 @@ export class UpdateProjectValidatorSchema {
 
 export class InsertUserInProjectValidatorSchema {
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   userId: string | undefined;
 
   constructor(user: { userId: string }) {

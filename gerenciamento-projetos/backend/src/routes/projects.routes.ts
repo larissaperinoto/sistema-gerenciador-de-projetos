@@ -12,17 +12,17 @@ import { ProjectsUsersService } from "../services/projetcsUsers.service";
 import ProjectsUsers from "../database/models/projectsUsers.model";
 import { ProjectsUsersController } from "../controllers/projectsUsers.controller";
 import { AuthService } from "../services/auth.service";
-import Users from "../database/models/users.model";
+import User from "../database/models/users.model";
 
 const route = Router();
 
 const projectsService = new ProjectsService(Project);
 const projectsController = new ProjectsController(projectsService);
 
-const userDervice = new AuthService(Users);
 const projectsUsersService = new ProjectsUsersService(
   ProjectsUsers,
-  userDervice
+  new AuthService(User),
+  new ProjectsService(Project)
 );
 const projectsUsersController = new ProjectsUsersController(
   projectsUsersService

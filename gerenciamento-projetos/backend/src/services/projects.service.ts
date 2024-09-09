@@ -5,6 +5,7 @@ import { ServiceResponse } from "../utils/types/responses";
 
 export interface IProjectService {
   findAll: () => Promise<ServiceResponse>;
+  findOne: (where: Record<string, any>) => Promise<ServiceResponse>;
   insert: (payload: ProjectType) => Promise<ServiceResponse>;
   update: (
     projectId: string,
@@ -33,6 +34,15 @@ export class ProjectsService implements IProjectService {
     return {
       status: httpStatus.OK,
       message: projects,
+    };
+  }
+
+  public async findOne(where: Record<string, any>) {
+    const project = await this._model.findOne({ where });
+
+    return {
+      status: httpStatus.OK,
+      message: project!,
     };
   }
 

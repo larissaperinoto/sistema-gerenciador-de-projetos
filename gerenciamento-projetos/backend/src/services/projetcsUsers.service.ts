@@ -2,7 +2,8 @@ import Users from "../database/models/users.model";
 import ProjectsUsers from "../database/models/projectsUsers.model";
 import { httpStatus } from "../utils/httpStatus";
 import { ServiceResponse } from "../utils/types/responses";
-import { AuthService } from "./auth.service";
+import { IAuthService } from "./auth.service";
+import { IProjectService } from "./projects.service";
 
 export interface IProjectsUsersService {
   findUsersInProject: (projectId: string) => Promise<ServiceResponse>;
@@ -18,11 +19,17 @@ export interface IProjectsUsersService {
 
 export class ProjectsUsersService implements IProjectsUsersService {
   private _model: typeof ProjectsUsers;
-  private _usersService: AuthService;
+  private _usersService: IAuthService;
+  private _projectsService: IProjectService;
 
-  constructor(model: typeof ProjectsUsers, usersService: AuthService) {
+  constructor(
+    model: typeof ProjectsUsers,
+    usersService: IAuthService,
+    projectsService: IProjectService
+  ) {
     this._model = model;
     this._usersService = usersService;
+    this._projectsService = projectsService;
   }
 
   public async findUsersInProject(projectId: string) {
@@ -58,6 +65,15 @@ export class ProjectsUsersService implements IProjectsUsersService {
       return {
         status: httpStatus.NotFound,
         message: "User not found.",
+      };
+    }
+
+    const project = await this._projectsService.findOne({ id: projectId });
+
+    if (!project.message) {
+      return {
+        status: httpStatus.NotFound,
+        message: "Project not found.",
       };
     }
 
