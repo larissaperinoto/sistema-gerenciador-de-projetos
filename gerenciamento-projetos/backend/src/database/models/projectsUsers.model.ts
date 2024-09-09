@@ -37,7 +37,7 @@ ProjectsUsers.init(
   }
 );
 
-Users.belongsToMany(Projects, { through: ProjectsUsers });
-Projects.belongsToMany(Users, { through: ProjectsUsers });
+ProjectsUsers.belongsTo(Users, { foreignKey: "userId" });
+ProjectsUsers.belongsTo(Projects, { foreignKey: "projectId" });
 
 export default ProjectsUsers;
