@@ -1,4 +1,5 @@
-import { DataTypes, QueryInterface } from "sequelize";
+"use strict";
+import { DataTypes, QueryInterface, Sequelize } from "sequelize";
 
 export = {
   up: async (queryInterface: QueryInterface) => {
@@ -19,10 +20,12 @@ export = {
       start_date: {
         type: DataTypes.DATE,
         allowNull: false,
+        field: "start_date",
       },
       end_date: {
         type: DataTypes.DATE,
         allowNull: true,
+        field: "end_date",
       },
       status: {
         type: DataTypes.STRING,
@@ -31,10 +34,16 @@ export = {
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        field: "created_at",
       },
       updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: Sequelize.literal(
+          "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+        ),
+        field: "updated_at",
       },
     });
   },

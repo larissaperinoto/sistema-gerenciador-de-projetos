@@ -1,3 +1,4 @@
+"use strict";
 import { DataTypes, QueryInterface } from "sequelize";
 
 export = {
@@ -12,6 +13,7 @@ export = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
         primaryKey: true,
+        field: "user_id",
       },
       project_id: {
         type: DataTypes.INTEGER,
@@ -22,6 +24,7 @@ export = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
         primaryKey: true,
+        field: "project_id",
       },
     });
   },
