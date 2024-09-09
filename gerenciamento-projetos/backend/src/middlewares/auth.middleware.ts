@@ -7,8 +7,8 @@ const authMiddleware: RequestHandler = async (req, res, next) => {
 
   if (!authorization)
     return res
-      .status(httpStatus.BadRequest)
-      .json({ message: "Token not found." });
+      .status(httpStatus.Unauthorized)
+      .json({ error: "Token not found." });
 
   try {
     const user = jwt.verify(authorization, process.env.JWT_SECRET as string);
@@ -16,8 +16,8 @@ const authMiddleware: RequestHandler = async (req, res, next) => {
     next();
   } catch (error) {
     return res
-      .status(httpStatus.BadRequest)
-      .json({ message: "Token must be a valid token." });
+      .status(httpStatus.Unauthorized)
+      .json({ error: "Token must be a valid token." });
   }
 };
 

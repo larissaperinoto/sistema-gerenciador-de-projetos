@@ -27,7 +27,7 @@ export class ProjectsService implements IProjectService {
     if (!projects.length) {
       return {
         status: httpStatus.NotFound,
-        message: "There are no registered projects.",
+        message: { error: "There are no registered projects." },
       };
     }
 
