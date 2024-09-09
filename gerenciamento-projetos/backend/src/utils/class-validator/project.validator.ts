@@ -66,3 +66,13 @@ export class UpdateProjectValidatorSchema {
     this.status = project.status;
   }
 }
+
+export class InsertUserInProjectValidatorSchema {
+  @IsNotEmpty()
+  @IsString()
+  userId: string | undefined;
+
+  constructor(user: { userId: string }) {
+    this.userId = user.userId;
+  }
+}

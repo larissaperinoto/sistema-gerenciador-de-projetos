@@ -5,6 +5,7 @@ import { ProjectsController } from "../controllers/projects.controller";
 import { validatorMiddleware } from "../middlewares/validator.middleware";
 import {
   CreateProjectValidatorSchema,
+  InsertUserInProjectValidatorSchema,
   UpdateProjectValidatorSchema,
 } from "../utils/class-validator/project.validator";
 import { ProjectsUsersService } from "../services/projetcsUsers.service";
@@ -43,6 +44,8 @@ route.post(
 
 route.post(
   "/projects/:projectId/users",
+  (req, res, next) =>
+    validatorMiddleware(req, res, next, InsertUserInProjectValidatorSchema),
   projectsUsersController.insertUserInProject.bind(projectsUsersController)
 );
 
