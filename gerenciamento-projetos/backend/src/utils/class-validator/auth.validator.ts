@@ -13,6 +13,29 @@ export class LoginValidatorSchema {
   email: string;
 
   @IsNotEmpty()
+  @IsString()
+  password: string;
+
+  constructor(login: { email: string; password: string }) {
+    this.email = login.email;
+    this.password = login.password;
+  }
+}
+
+export class RegisterUserValidatorSchema {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsNotEmpty()
+  @IsEnum(RoleTypes)
+  role: string;
+
+  @IsNotEmpty()
   @IsStrongPassword(
     {
       minLength: 8,
@@ -28,24 +51,10 @@ export class LoginValidatorSchema {
   )
   password: string;
 
-  constructor(login: { email: string; password: string }) {
-    this.email = login.email;
-    this.password = login.password;
-  }
-}
-
-export class RegisterUserValidatorSchema extends LoginValidatorSchema {
-  @IsNotEmpty()
-  @IsString()
-  name: string;
-
-  @IsNotEmpty()
-  @IsEnum(RoleTypes)
-  role: string;
-
   constructor(register: RegisterType) {
-    super(register);
     this.name = register.name;
+    this.email = register.email;
     this.role = register.role;
+    this.password = register.password;
   }
 }
