@@ -48,7 +48,7 @@ export function Register() {
           name,
           role,
         });
-        navigate("/home");
+        navigate("/dashboard");
       }
     } catch (e) {
       showToast((e as Error).message, {
