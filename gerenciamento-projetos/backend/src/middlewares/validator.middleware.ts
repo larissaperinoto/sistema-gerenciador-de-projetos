@@ -17,7 +17,7 @@ export async function validatorMiddleware(
   } catch (e: any) {
     const description = Object.values(e[0].constraints)[0];
     res.status(httpStatus.BadRequest).send({
-      message: description,
+      error: description,
     });
   }
 }
