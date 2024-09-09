@@ -1,4 +1,5 @@
 import express, { Express } from "express";
+import cors from "cors";
 import authRoutes from "./routes/auth.routes";
 import projectsRoutes from "./routes/projects.routes";
 
@@ -15,18 +16,14 @@ class App {
   }
 
   private config(): void {
-    const accessControl: express.RequestHandler = (_req, res, next) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-Allow-Methods",
-        "GET,POST,DELETE,OPTIONS,PUT,PATCH"
-      );
-      res.header("Access-Control-Allow-Headers", "*");
-      next();
-    };
-
     this.app.use(express.json());
-    this.app.use(accessControl);
+    this.app.use(
+      cors({
+        origin: "*",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+      })
+    );
   }
 
   public start(PORT: string | number): void {
