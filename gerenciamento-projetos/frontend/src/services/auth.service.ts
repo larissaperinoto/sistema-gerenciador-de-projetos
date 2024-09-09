@@ -33,8 +33,8 @@ export class AuthService {
     localStorage.setItem("token", token);
   }
 
-  public getToken() {
-    localStorage.getItem("token");
+  public getToken(): string | null {
+    return localStorage.getItem("token");
   }
 
   public async login(credentials: Partial<RegisterType>) {
