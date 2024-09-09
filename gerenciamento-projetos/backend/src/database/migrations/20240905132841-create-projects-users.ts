@@ -2,8 +2,8 @@ import { DataTypes, QueryInterface } from "sequelize";
 
 export = {
   up: async (queryInterface: QueryInterface) => {
-    await queryInterface.createTable("ProjectUsers", {
-      userId: {
+    await queryInterface.createTable("ProjectsUsers", {
+      user_id: {
         type: DataTypes.INTEGER,
         references: {
           model: "Users",
@@ -13,7 +13,7 @@ export = {
         onDelete: "CASCADE",
         primaryKey: true,
       },
-      projectId: {
+      project_id: {
         type: DataTypes.INTEGER,
         references: {
           model: "Projects",
@@ -27,6 +27,6 @@ export = {
   },
 
   down: async (queryInterface: QueryInterface) => {
-    await queryInterface.dropTable("ProjectUsers");
+    await queryInterface.dropTable("ProjecstUsers");
   },
 };

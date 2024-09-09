@@ -16,11 +16,11 @@ export = {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      startDate: {
+      start_date: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      endDate: {
+      end_date: {
         type: DataTypes.DATE,
         allowNull: true,
       },
@@ -28,11 +28,11 @@ export = {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      createdAt: {
+      created_at: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      updatedAt: {
+      updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
       },

@@ -1,26 +1,12 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import connection from "../connection";
 
-interface ProjectAttributes {
-  id: number;
-  nome: string;
-  descricao: string;
-  data_inicio: Date;
-  data_fim?: Date;
-  status: "Em andamento" | "Concluído" | "Pendente";
-}
-
-interface ProjetoCreationAttributes extends Optional<ProjectAttributes, "id"> {}
-
-class Project
-  extends Model<ProjectAttributes, ProjetoCreationAttributes>
-  implements ProjectAttributes
-{
+class Project extends Model {
   public id!: number;
-  public nome!: string;
-  public descricao!: string;
-  public data_inicio!: Date;
-  public data_fim?: Date;
+  public name!: string;
+  public description!: string;
+  public start_date!: Date;
+  public end_date?: Date;
   public status!: "Em andamento" | "Concluído" | "Pendente";
 }
 
@@ -31,19 +17,19 @@ Project.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    nome: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    descricao: {
+    description: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    data_inicio: {
+    start_date: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    data_fim: {
+    end_date: {
       type: DataTypes.DATE,
       allowNull: true,
     },
@@ -55,6 +41,7 @@ Project.init(
   {
     sequelize: connection,
     tableName: "Projects",
+    underscored: true,
   }
 );
 

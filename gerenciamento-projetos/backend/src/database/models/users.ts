@@ -1,25 +1,12 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import connection from "../connection";
 
-interface UsersAttributes {
-  id: number;
-  nome: string;
-  email: string;
-  senha: string;
-  papel: "Gerente" | "Desenvolvedor" | "Designer";
-}
-
-interface UsersCreationAttributes extends Optional<UsersAttributes, "id"> {}
-
-class Users
-  extends Model<UsersAttributes, UsersCreationAttributes>
-  implements UsersAttributes
-{
+class Users extends Model {
   public id!: number;
-  public nome!: string;
+  public name!: string;
   public email!: string;
-  public senha!: string;
-  public papel!: "Gerente" | "Desenvolvedor" | "Designer";
+  public password!: string;
+  public role!: "Gerente" | "Desenvolvedor" | "Designer";
 }
 
 Users.init(
@@ -29,7 +16,7 @@ Users.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    nome: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -38,11 +25,11 @@ Users.init(
       allowNull: false,
       unique: true,
     },
-    senha: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    papel: {
+    role: {
       type: DataTypes.ENUM("Gerente", "Desenvolvedor", "Designer"),
       allowNull: false,
     },
@@ -50,6 +37,7 @@ Users.init(
   {
     sequelize: connection,
     tableName: "Users",
+    underscored: true,
   }
 );
 

@@ -4,13 +4,13 @@ import Users from "./users";
 import Projects from "./projects";
 
 class ProjectsUsers extends Model {
-  public usuario_id!: number;
-  public projeto_id!: number;
+  public user_id!: number;
+  public project_id!: number;
 }
 
 ProjectsUsers.init(
   {
-    usuario_id: {
+    user_id: {
       type: DataTypes.INTEGER,
       references: {
         model: Users,
@@ -18,7 +18,7 @@ ProjectsUsers.init(
       },
       primaryKey: true,
     },
-    projeto_id: {
+    project_id: {
       type: DataTypes.INTEGER,
       references: {
         model: Projects,
@@ -29,8 +29,9 @@ ProjectsUsers.init(
   },
   {
     sequelize: connection,
-    tableName: "Projects_Users",
+    tableName: "ProjectsUsers",
     timestamps: false,
+    underscored: true,
   }
 );
 
