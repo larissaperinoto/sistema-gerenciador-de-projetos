@@ -1,7 +1,7 @@
 import Users from "../database/models/users.model";
 import bcrypt from "bcrypt";
 import { httpStatus } from "../utils/httpStatus";
-import { RegisterType } from "../utils/types/register";
+import { RegisterType } from "../utils/types/register.type";
 import { ServiceResponse } from "../utils/types/responses";
 import generateToken from "../utils/generateToken";
 
@@ -77,9 +77,9 @@ export class AuthService implements IAuthService {
     };
   }
 
-  public async getUser({ email }: Partial<RegisterType>) {
+  public async getUser(payload: Partial<RegisterType>) {
     const user = await this._model.findOne({
-      where: { email },
+      where: payload,
       attributes: { exclude: ["password"] },
     });
 

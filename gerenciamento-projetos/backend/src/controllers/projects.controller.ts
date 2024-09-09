@@ -19,14 +19,14 @@ export class ProjectsController {
   }
 
   public async update(req: Request, res: Response) {
-    const projectId = req.params["id"];
+    const projectId = req.params["projectId"];
 
     const { status, message } = await this.service.update(projectId, req.body);
     res.status(status).json(message);
   }
 
   public async remove(req: Request, res: Response) {
-    const projectId = req.params["id"];
+    const projectId = req.params["projectId"];
     const { status } = await this.service.remove(projectId);
     res.sendStatus(status!);
   }

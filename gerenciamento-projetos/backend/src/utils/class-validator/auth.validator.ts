@@ -5,7 +5,7 @@ import {
   IsString,
   IsStrongPassword,
 } from "class-validator";
-import { RegisterType, RoleTypes } from "../types/register";
+import { RegisterType, RoleTypes } from "../types/register.type";
 
 export class LoginValidatorSchema {
   @IsNotEmpty()
