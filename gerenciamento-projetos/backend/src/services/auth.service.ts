@@ -19,7 +19,7 @@ export class AuthService implements IAuthService {
   }
 
   public async register(payload: RegisterType) {
-    const { email, password } = payload;
+    const { name, email, password, role } = payload;
 
     const saltOrRounds = 10;
 
@@ -36,12 +36,22 @@ export class AuthService implements IAuthService {
       };
     }
 
-    await this._model.create({ ...payload, password: hashedPassword });
+    const { id } = await this._model.create({
+      name,
+      email,
+      role,
+      password: hashedPassword,
+    });
+    const res = await this.login({ email, password });
 
     return {
       status: httpStatus.Created,
       message: {
-        error: "User created successfully.",
+        id,
+        name,
+        email,
+        role,
+        token: res.message.token,
       },
     };
   }
@@ -85,7 +95,7 @@ export class AuthService implements IAuthService {
 
     return {
       status: httpStatus.OK,
-      message: user ?? {},
+      message: user!,
     };
   }
 }
