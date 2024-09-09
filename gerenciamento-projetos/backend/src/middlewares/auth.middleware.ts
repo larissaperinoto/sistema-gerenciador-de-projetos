@@ -4,7 +4,6 @@ import { httpStatus } from "../utils/httpStatus";
 
 const authMiddleware: RequestHandler = async (req, res, next) => {
   const { authorization } = req.headers;
-  console.log(authorization);
 
   if (!authorization)
     return res
@@ -13,7 +12,6 @@ const authMiddleware: RequestHandler = async (req, res, next) => {
 
   try {
     const user = jwt.verify(authorization, process.env.JWT_SECRET as string);
-    console.log(user);
     req.body = user;
     next();
   } catch (error) {

@@ -1,18 +1,24 @@
 import { Router } from "express";
+
+import ProjectsUsers from "../database/models/projectsUsers.model";
 import Project from "../database/models/projects.model";
+import User from "../database/models/users.model";
+
 import { ProjectsService } from "../services/projects.service";
+import { ProjectsUsersService } from "../services/projetcsUsers.service";
+import { AuthService } from "../services/auth.service";
+
 import { ProjectsController } from "../controllers/projects.controller";
+import { ProjectsUsersController } from "../controllers/projectsUsers.controller";
+
 import { validatorMiddleware } from "../middlewares/validator.middleware";
+import authMiddleware from "../middlewares/auth.middleware";
+
 import {
   CreateProjectValidatorSchema,
   InsertUserInProjectValidatorSchema,
   UpdateProjectValidatorSchema,
 } from "../utils/class-validator/project.validator";
-import { ProjectsUsersService } from "../services/projetcsUsers.service";
-import ProjectsUsers from "../database/models/projectsUsers.model";
-import { ProjectsUsersController } from "../controllers/projectsUsers.controller";
-import { AuthService } from "../services/auth.service";
-import User from "../database/models/users.model";
 
 const route = Router();
 
@@ -27,6 +33,8 @@ const projectsUsersService = new ProjectsUsersService(
 const projectsUsersController = new ProjectsUsersController(
   projectsUsersService
 );
+
+route.use(authMiddleware);
 
 route.get("/projects", projectsController.findAll.bind(projectsController));
 
