@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useToast } from "../../hooks/useToast";
 import { Toast } from "../Toast/Toast";
-import { login } from "../../services/auth.service";
+import { AuthService } from "../../services/auth.service";
 import "./Login.css";
 
 export function Login() {
@@ -28,7 +28,7 @@ export function Login() {
 
     try {
       if (email && password) {
-        await login({ email, password });
+        await AuthService.getInstance().login({ email, password });
       }
     } catch (e) {
       console.log(e, (e as Error).message);
@@ -45,14 +45,14 @@ export function Login() {
         <input
           type="email"
           placeholder="Email"
-          className="login-email-input"
+          className="login-input"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
         <input
           type="password"
           placeholder="Senha"
-          className="login-password-input"
+          className="login-input"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
