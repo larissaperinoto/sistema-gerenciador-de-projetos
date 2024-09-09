@@ -1,37 +1,39 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../connection";
-import Users from "./users";
-import Projects from "./projects";
+import Users from "./users.model";
+import Projects from "./projects.model";
 
 class ProjectsUsers extends Model {
-  public user_id!: number;
-  public project_id!: number;
+  public userId!: number;
+  public projectId!: number;
 }
 
 ProjectsUsers.init(
   {
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER,
       references: {
         model: Users,
         key: "id",
       },
       primaryKey: true,
+      field: "user_id",
     },
-    project_id: {
+    projectId: {
       type: DataTypes.INTEGER,
       references: {
         model: Projects,
         key: "id",
       },
       primaryKey: true,
+      field: "project_id",
     },
   },
   {
+    underscored: true,
+    timestamps: false,
     sequelize: connection,
     tableName: "ProjectsUsers",
-    timestamps: false,
-    underscored: true,
   }
 );
 

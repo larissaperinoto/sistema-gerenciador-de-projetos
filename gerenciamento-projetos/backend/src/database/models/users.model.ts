@@ -35,9 +35,10 @@ Users.init(
     },
   },
   {
-    sequelize: connection,
-    tableName: "Users",
     underscored: true,
+    timestamps: true,
+    tableName: "Users",
+    sequelize: connection,
   }
 );
 
