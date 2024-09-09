@@ -30,6 +30,6 @@ export = {
   },
 
   down: async (queryInterface: QueryInterface) => {
-    await queryInterface.dropTable("ProjecstUsers");
+    await queryInterface.dropTable("ProjectsUsers");
   },
 };
