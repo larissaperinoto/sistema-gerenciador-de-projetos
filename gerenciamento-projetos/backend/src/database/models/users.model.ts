@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../connection";
 
-class Users extends Model {
+class User extends Model {
   public id!: number;
   public name!: string;
   public email!: string;
@@ -9,7 +9,7 @@ class Users extends Model {
   public role!: "Gerente" | "Desenvolvedor" | "Designer";
 }
 
-Users.init(
+User.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -42,4 +42,4 @@ Users.init(
   }
 );
 
-export default Users;
+export default User;
