@@ -1,3 +1,4 @@
+import Users from "../database/models/users.model";
 import ProjectsUsers from "../database/models/projectsUsers.model";
 import { httpStatus } from "../utils/httpStatus";
 import { ServiceResponse } from "../utils/types/responses";
@@ -27,6 +28,12 @@ export class ProjectsUsersService implements IProjectsUsersService {
   public async findUsersInProject(projectId: string) {
     const users = await this._model.findAll({
       where: { projectId: projectId },
+      include: [
+        {
+          model: Users,
+          attributes: ["id", "name", "email", "role"],
+        },
+      ],
     });
 
     if (!users.length) {
@@ -38,7 +45,7 @@ export class ProjectsUsersService implements IProjectsUsersService {
 
     return {
       status: httpStatus.OK,
-      message: users,
+      message: users.map(({ User }: any) => User),
     };
   }
   public async insertUserInProject(
@@ -47,7 +54,7 @@ export class ProjectsUsersService implements IProjectsUsersService {
   ) {
     const user = await this._usersService.getUser({ id: userId });
 
-    if (!user) {
+    if (!user.message) {
       return {
         status: httpStatus.NotFound,
         message: "User not found.",
