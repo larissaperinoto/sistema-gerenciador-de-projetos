@@ -313,6 +313,6 @@ Os itens estão separados por níveis, e o nível 1 é o mínimo que esperamos q
 
 |     | Descrição                                            | Local |
 | --- | ---------------------------------------------------- | ----- |
-| [ ] | Disponibilização do backend via Containers           | B     |
-| [ ] | Disponibilização do frontend via Containers          | F     |
-| [ ] | Disponibilização dos containers (backend + frontend) | F B   |
+| [X] | Disponibilização do backend via Containers           | B     |
+| [X] | Disponibilização do frontend via Containers          | F     |
+| [X] | Disponibilização dos containers (backend + frontend) | F B   |
