@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../hooks/useToast";
 import { Toast } from "../Toast/Toast";
-import { AuthService, UserRole } from "../../services/auth.service";
+import { AuthService, UserRole, UserType } from "../../services/auth.service";
 import "./Register.css";
+import { isEmailValid, isStrongPassword } from "../../utils/validators";
 
 export function Register() {
   const navigate = useNavigate();
@@ -13,43 +14,46 @@ export function Register() {
   const [name, setName] = useState<string>();
   const [role, setRole] = useState<UserRole>(UserRole.GERENTE);
 
-  async function handleRegister(e: any) {
-    e.preventDefault();
-
-    if (!email) {
-      showToast("Insira um e-mail para prosseguir.", {
+  async function handleRegister({ email, password, name, role }: UserType) {
+    if (!isEmailValid(email)) {
+      showToast("Insira um e-mail válido para prosseguir.", {
         duration: 3000,
       });
+      return;
     }
 
-    if (!password) {
-      showToast("Insira um password para prosseguir.", {
-        duration: 3000,
-      });
+    if (!isStrongPassword(password)) {
+      showToast(
+        "Insira uma senha com no mínimo 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caracter especial.",
+        {
+          duration: 3000,
+        }
+      );
+      return;
     }
 
     if (!name) {
       showToast("Insira o nome para prosseguir.", {
         duration: 3000,
       });
+      return;
     }
 
     if (!role) {
       showToast("Insira o papel para prosseguir.", {
         duration: 3000,
       });
+      return;
     }
 
     try {
-      if (email && password && name && role) {
-        await AuthService.getInstance().register({
-          email,
-          password,
-          name,
-          role,
-        });
-        navigate("/dashboard");
-      }
+      await AuthService.getInstance().register({
+        email,
+        password,
+        name,
+        role,
+      });
+      navigate("/dashboard");
     } catch (e) {
       showToast((e as Error).message, {
         duration: 3000,
@@ -95,7 +99,9 @@ export function Register() {
         </select>
         <button
           type="button"
-          onClick={(e) => handleRegister(e)}
+          onClick={() =>
+            handleRegister({ name, email, password, role } as UserType)
+          }
           className="button button-blue width-total"
         >
           Cadastrar
