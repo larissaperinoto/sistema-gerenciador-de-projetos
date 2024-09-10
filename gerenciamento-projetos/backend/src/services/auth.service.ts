@@ -92,8 +92,18 @@ export class AuthService implements IAuthService {
   public async getUser(payload: { user: Partial<RegisterType> }) {
     const { email, id } = payload.user;
 
+    let where = {};
+
+    if (email) {
+      where = { ...where, email };
+    }
+
+    if (id) {
+      where = { ...where, id };
+    }
+
     const user = await this._model.findOne({
-      where: { email, id },
+      where,
       attributes: { exclude: ["password"] },
     });
 
