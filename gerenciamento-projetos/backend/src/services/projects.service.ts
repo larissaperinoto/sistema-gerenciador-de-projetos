@@ -1,4 +1,5 @@
 import Project from "../database/models/projects.model";
+import { isEndDateValid, isStartDateValid } from "../utils/validators";
 import { httpStatus } from "../utils/httpStatus";
 import { ProjectStatus, ProjectType } from "../utils/types/project.type";
 import { ServiceResponse } from "../utils/types/responses";
@@ -47,6 +48,26 @@ export class ProjectsService implements IProjectService {
   }
 
   public async insert(payload: ProjectType) {
+    if (!isStartDateValid(payload.startDate)) {
+      return {
+        status: httpStatus.BadRequest,
+        message: {
+          error:
+            "A data inicial do projeto não deve ser menor do que a data atual.",
+        },
+      };
+    }
+
+    if (!isEndDateValid(payload.endDate, payload.startDate)) {
+      return {
+        status: httpStatus.BadRequest,
+        message: {
+          error:
+            "A data final do projeto não deve ser menor do que a data inicial.",
+        },
+      };
+    }
+
     const created = await this._model.create(payload);
 
     return {

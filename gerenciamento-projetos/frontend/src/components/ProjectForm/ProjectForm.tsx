@@ -8,6 +8,7 @@ import { useToast } from "../../hooks/useToast";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "../Toast/Toast";
 import { formatDateToISO } from "../../utils/format";
+import { isEndDateValid, isStartDateValid } from "../../utils/validators";
 import "./ProjectForm.css";
 
 interface ProjectFormProps {
@@ -34,64 +35,78 @@ export function ProjectForm({ project, onClose }: ProjectFormProps) {
     project?.status ?? ProjectStatus.EM_ANDAMENTO
   );
 
-  function validateFields({
-    name,
-    description,
-    startDate,
-    endDate,
-    status,
-  }: Partial<ProjectType>) {
+  async function handleCreate(project: Partial<ProjectType>) {
+    await ProjectsService.getInstance().createProject(project);
+  }
+
+  async function handleUpdate(project: Partial<ProjectType>) {
+    await ProjectsService.getInstance().updateProject(project);
+  }
+
+  async function handleClik(
+    project: Partial<ProjectType>,
+    operation: "CREATE" | "UPDATE"
+  ) {
     if (!name) {
       showToast("Insira o nome do projeto para continuar.", {
-        duration: 3000,
+        duration: 6000,
       });
+      return;
     }
 
     if (!description) {
       showToast("Insira a descrição do projeto para continuar.", {
-        duration: 3000,
+        duration: 6000,
       });
+      return;
     }
 
     if (!startDate) {
-      showToast("Insira a data de início do projeto para continuar.", {
-        duration: 3000,
+      showToast("Insira a data de início do projeto para continuar..", {
+        duration: 6000,
       });
+      return;
+    }
+
+    if (!isStartDateValid(startDate)) {
+      showToast("A data de início deve ser menor do que a data atual.", {
+        duration: 6000,
+      });
+      return;
     }
 
     if (!endDate) {
       showToast("Insira a data de finalização do projeto para continuar.", {
-        duration: 3000,
+        duration: 6000,
       });
+      return;
+    }
+
+    if (!isEndDateValid(endDate, startDate)) {
+      showToast(
+        "A data de finalização do projeto não deve ser menor do que a data de início.",
+        {
+          duration: 6000,
+        }
+      );
+      return;
     }
 
     if (!status) {
       showToast("Selecione o status do projeto para continuar.", {
-        duration: 3000,
+        duration: 6000,
       });
+      return;
     }
-  }
-
-  async function handleCreateProject(project: Partial<ProjectType>) {
-    validateFields(project);
 
     try {
-      await ProjectsService.getInstance().createProject(project);
-      onClose(false);
-    } catch (e) {
-      if ((e as Error).message === "Unauthorized") {
-        navigate("/");
-      } else {
-        showToast((e as Error).message, {
-          duration: 3000,
-        });
+      if (operation === "CREATE") {
+        await handleCreate(project);
       }
-    }
-  }
 
-  async function handleUpdateProject(project: Partial<ProjectType>) {
-    try {
-      await ProjectsService.getInstance().updateProject(project);
+      if (operation === "UPDATE") {
+        await handleUpdate(project);
+      }
       onClose(false);
     } catch (e) {
       if ((e as Error).message === "Unauthorized") {
@@ -162,40 +177,28 @@ export function ProjectForm({ project, onClose }: ProjectFormProps) {
               {ProjectStatus.PENDENTE}
             </option>
           </select>
-          {id ? (
-            <button
-              type="button"
-              className="button button-green width-total"
-              onClick={() =>
-                handleUpdateProject({
+
+          <button
+            type="button"
+            className={`button width-total ${
+              id ? "button-green" : "button-blue"
+            }`}
+            onClick={() =>
+              handleClik(
+                {
                   id,
                   name,
                   description,
                   startDate,
                   endDate,
                   status,
-                })
-              }
-            >
-              Atualizar
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="button button-blue width-total"
-              onClick={() =>
-                handleCreateProject({
-                  name,
-                  description,
-                  startDate,
-                  endDate,
-                  status,
-                })
-              }
-            >
-              Criar
-            </button>
-          )}
+                },
+                id ? "UPDATE" : "CREATE"
+              )
+            }
+          >
+            {id ? "Atualizar" : "Criar"}
+          </button>
         </form>
       </div>
       <Toast message={message} onClose={() => showToast(null)} />
