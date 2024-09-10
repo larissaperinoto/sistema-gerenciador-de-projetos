@@ -7,6 +7,7 @@ import { UserType } from "../../services/auth.service";
 import { ModalAlert } from "../ModalAlert/ModalAlert";
 import { AddMember } from "../AddMember/AddMember";
 import { formatDateToString } from "../../utils/format";
+import { EditMember } from "../EditMember/EditMember";
 import "./ProjectTeam.css";
 
 export function ProjectTeam() {
@@ -19,6 +20,7 @@ export function ProjectTeam() {
   const [showRemoveUserAlert, setShowRemoveUserAlert] =
     useState<boolean>(false);
   const [userSelected, setUserSelected] = useState<Partial<UserType>>();
+  const [showEditUserModal, setShowEditUserModal] = useState<boolean>(false);
 
   const { projectId } = useParams();
 
@@ -51,7 +53,6 @@ export function ProjectTeam() {
         );
         setMembers(members);
       } catch (e) {
-        console.log(e);
         if ((e as Error).message === "Unauthorized") {
           navigate("/");
         } else {
@@ -62,7 +63,7 @@ export function ProjectTeam() {
       }
     }
     requestData();
-  }, [showAddMemberModal]);
+  }, [showAddMemberModal, showEditUserModal]);
 
   return (
     <div className="project-container">
@@ -105,6 +106,16 @@ export function ProjectTeam() {
                 <th className="table-flex-cell">
                   <button
                     type="button"
+                    className="button button-green"
+                    onClick={() => {
+                      setShowEditUserModal(true);
+                      setUserSelected({ id, name, email, role });
+                    }}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    type="button"
                     className="button button-red"
                     onClick={() => {
                       setShowRemoveUserAlert(true);
@@ -142,6 +153,12 @@ export function ProjectTeam() {
       )}
       {showAddMemberModal && (
         <AddMember onClose={setShowAddMemberModal} members={members} />
+      )}
+      {showEditUserModal && (
+        <EditMember
+          member={userSelected as UserType}
+          onClose={setShowEditUserModal}
+        />
       )}
     </div>
   );

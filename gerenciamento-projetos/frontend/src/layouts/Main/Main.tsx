@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import "./Main.css";
 import { Header } from "../../components/Header/Header";
+import "./Main.css";
 
 type MainProps = {
   content: ReactNode;

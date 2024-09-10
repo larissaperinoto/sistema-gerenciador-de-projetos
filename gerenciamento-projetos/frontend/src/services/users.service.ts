@@ -26,4 +26,14 @@ export class UsersService {
     );
     return data;
   }
+
+  public async changeRole(userId: string, role: string) {
+    const getProjectsPath = process.env.REACT_APP_USERS_PATH as string;
+    const data = await fetchData(
+      this._serverUrl + getProjectsPath + `/${userId}`,
+      HttpMethod.PUT,
+      { role }
+    );
+    return data;
+  }
 }

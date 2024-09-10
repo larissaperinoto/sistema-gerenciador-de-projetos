@@ -12,4 +12,10 @@ export class UserController {
     const { status, message } = await this.service.findAll();
     res.status(status).json(message);
   }
+
+  public async update(req: Request, res: Response) {
+    const userId = req.params["userId"];
+    const { status, message } = await this.service.update(userId, req.body);
+    res.status(status).json(message);
+  }
 }

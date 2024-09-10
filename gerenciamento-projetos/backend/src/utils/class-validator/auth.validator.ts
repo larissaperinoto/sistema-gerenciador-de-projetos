@@ -1,11 +1,11 @@
 import {
   IsEmail,
-  IsEnum,
   IsNotEmpty,
   IsString,
   IsStrongPassword,
 } from "class-validator";
-import { UserType, RoleTypes } from "../types/register.type";
+import { UserType } from "../types/register.type";
+import { RoleValidatorSchema } from "./user.validator";
 
 export class LoginValidatorSchema {
   @IsNotEmpty()
@@ -22,7 +22,7 @@ export class LoginValidatorSchema {
   }
 }
 
-export class RegisterUserValidatorSchema {
+export class RegisterUserValidatorSchema extends RoleValidatorSchema {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -30,10 +30,6 @@ export class RegisterUserValidatorSchema {
   @IsNotEmpty()
   @IsEmail()
   email: string;
-
-  @IsNotEmpty()
-  @IsEnum(RoleTypes)
-  role: string;
 
   @IsNotEmpty()
   @IsStrongPassword(
@@ -52,9 +48,9 @@ export class RegisterUserValidatorSchema {
   password: string;
 
   constructor(register: UserType) {
+    super(register);
     this.name = register.name;
     this.email = register.email;
-    this.role = register.role;
     this.password = register.password;
   }
 }
