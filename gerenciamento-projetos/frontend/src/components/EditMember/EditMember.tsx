@@ -42,7 +42,7 @@ export function EditMember({ member, onClose }: IEditMember) {
         >
           X
         </button>
-        <form>
+        <form className="form">
           <input type="text" disabled className="input" value={user.name} />
           <input type="text" disabled className="input" value={user.email} />
           <select

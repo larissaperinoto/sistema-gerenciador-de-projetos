@@ -115,7 +115,7 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
         >
           X
         </button>
-        <form className="project-form">
+        <form className="form">
           <input
             type="text"
             placeholder="Nome"
