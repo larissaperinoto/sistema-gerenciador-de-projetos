@@ -296,7 +296,7 @@ Os itens estão separados por níveis, e o nível 1 é o mínimo que esperamos q
 | --- | ------------------------------------------------ | ----- |
 | [X] | Tratamento de exceções / Retornos erros concisos | F B   |
 | [X] | Mensagens de sucesso e/ou erros                  | F     |
-| [ ] | Impedir remoção de projetos não concluídos       | B     |
+| [X] | Impedir remoção de projetos não concluídos       | B     |
 | [ ] | Paginação na listagem de projetos                | F B   |
 | [ ] | Paginação na listagem de usuários                | F B   |
 | [X] | Confirmação para exclusão de itens               | F     |
