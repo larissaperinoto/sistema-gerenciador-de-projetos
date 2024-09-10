@@ -6,7 +6,7 @@ export enum UserRole {
   DESIGNER = "Designer",
 }
 
-type UserType = {
+export type UserType = {
   id?: string;
   email: string;
   name: string;
