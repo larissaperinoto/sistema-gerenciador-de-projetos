@@ -1,10 +1,13 @@
+import { fetchData, HttpMethod } from "../utils/fetch";
+
 export enum UserRole {
   GERENTE = "Gerente",
   DESENVOLVEDOR = "Desenvolvedor",
   DESIGNER = "Designer",
 }
 
-type RegisterType = {
+type UserType = {
+  id?: string;
   email: string;
   name: string;
   password: string;
@@ -37,42 +40,26 @@ export class AuthService {
     return localStorage.getItem("token");
   }
 
-  public async login(credentials: Partial<RegisterType>) {
+  public async login(credentials: Partial<UserType>) {
     const loginPath = process.env.REACT_APP_LOGIN_PATH as string;
 
-    const res = await fetch(this._serverUrl + loginPath, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
-
-    const data = await res.json();
-
-    if (res.status !== 200) {
-      throw new Error(data.error);
-    }
+    const data = await fetchData(
+      this._serverUrl + loginPath,
+      HttpMethod.POST,
+      credentials
+    );
 
     this.saveToken(data.token);
   }
 
-  public async register(user: RegisterType) {
+  public async register(user: UserType) {
     const registerPath = process.env.REACT_APP_REGISTER_PATH as string;
 
-    const res = await fetch(this._serverUrl + registerPath, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
-
-    const data = await res.json();
-
-    if (res.status !== 201) {
-      throw new Error(data.error);
-    }
+    const data = await fetchData(
+      this._serverUrl + registerPath,
+      HttpMethod.POST,
+      user
+    );
 
     this.saveToken(data.token);
   }
