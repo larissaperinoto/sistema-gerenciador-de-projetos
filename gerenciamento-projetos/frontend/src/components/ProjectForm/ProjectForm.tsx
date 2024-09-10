@@ -1,5 +1,9 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { ProjectsService, ProjectType } from "../../services/projects.service";
+import {
+  ProjectsService,
+  ProjectStatus,
+  ProjectType,
+} from "../../services/projects.service";
 import { useToast } from "../../hooks/useToast";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "../Toast/Toast";
@@ -27,7 +31,9 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
       ? new Date(project.endDate).toISOString().split("T")[0]
       : ""
   );
-  const [status, setStatus] = useState(project?.status);
+  const [status, setStatus] = useState(
+    project?.status ?? ProjectStatus.EM_ANDAMENTO
+  );
 
   function validateFields({
     name,
@@ -140,13 +146,21 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
           />
 
           <select
-            onChange={(e) => setStatus(e.target.value)}
+            onChange={(e) =>
+              setStatus(e.target.value as unknown as ProjectStatus)
+            }
             value={status}
-            defaultValue="Em andamento"
+            defaultValue={ProjectStatus.EM_ANDAMENTO}
           >
-            <option value="Em andamento">Em andamento</option>
-            <option value="Concluído">Concluído</option>
-            <option value="Pendente">Pendente</option>
+            <option value={ProjectStatus.EM_ANDAMENTO}>
+              {ProjectStatus.EM_ANDAMENTO}
+            </option>
+            <option value={ProjectStatus.CONCLUIDO}>
+              {ProjectStatus.CONCLUIDO}
+            </option>
+            <option value={ProjectStatus.PENDENTE}>
+              {ProjectStatus.PENDENTE}
+            </option>
           </select>
           {id ? (
             <button

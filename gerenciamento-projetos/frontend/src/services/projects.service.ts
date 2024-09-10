@@ -1,4 +1,10 @@
-import { AuthService } from "./auth.service";
+import { fetchData, HttpMethod } from "../utils/fetch";
+
+export enum ProjectStatus {
+  EM_ANDAMENTO = "Em andamento",
+  CONCLUIDO = "Concluído",
+  PENDENTE = "Pendente",
+}
 
 export type ProjectType = {
   id?: string;
@@ -6,7 +12,7 @@ export type ProjectType = {
   description: string;
   startDate: string;
   endDate: string;
-  status: string;
+  status: ProjectStatus;
 };
 
 export class ProjectsService {
@@ -29,65 +35,20 @@ export class ProjectsService {
 
   public async getProjects() {
     const getProjectsPath = process.env.REACT_APP_PROJECTS_PATH as string;
-
-    const token = AuthService.getInstance().getToken();
-
-    if (!token) {
-      throw new Error("Unauthorized");
-    }
-
-    const res = await fetch(this._serverUrl + getProjectsPath, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
-
-    const data = await res.json();
-
-    if (res.status === 401) {
-      throw new Error("Unauthorized");
-    }
-
-    if (res.status !== 200) {
-      throw new Error(data.error);
-    }
-
+    const data = await fetchData(
+      this._serverUrl + getProjectsPath,
+      HttpMethod.GET
+    );
     return data;
   }
 
   public async removeProject(projectId: string) {
     const getProjectsPath = process.env.REACT_APP_PROJECTS_PATH as string;
 
-    const token = AuthService.getInstance().getToken();
-
-    if (!token) {
-      throw new Error("Unauthorized");
-    }
-
-    const res = await fetch(
+    await fetchData(
       this._serverUrl + getProjectsPath + `/${projectId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      }
+      HttpMethod.DELETE
     );
-
-    const data = await res.json();
-
-    if (res.status === 401) {
-      throw new Error("Unauthorized");
-    }
-
-    if (res.status !== 204) {
-      throw new Error(data.error);
-    }
-
-    return data;
   }
 
   public async createProject({
@@ -99,36 +60,17 @@ export class ProjectsService {
   }: Partial<ProjectType>) {
     const createProjectsPath = process.env.REACT_APP_PROJECTS_PATH as string;
 
-    const token = AuthService.getInstance().getToken();
-
-    if (!token) {
-      throw new Error("Unauthorized");
-    }
-
-    const res = await fetch(this._serverUrl + createProjectsPath, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-      body: JSON.stringify({
+    const data = await fetchData(
+      this._serverUrl + createProjectsPath,
+      HttpMethod.POST,
+      {
         name,
         description,
         startDate,
         endDate,
         status,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (res.status === 401) {
-      throw new Error("Unauthorized");
-    }
-
-    if (res.status !== 201) {
-      throw new Error(data.error);
-    }
+      }
+    );
 
     return data;
   }
@@ -136,33 +78,11 @@ export class ProjectsService {
   public async updateProject(project: Partial<ProjectType>) {
     const createProjectsPath = process.env.REACT_APP_PROJECTS_PATH as string;
 
-    const token = AuthService.getInstance().getToken();
-
-    if (!token) {
-      throw new Error("Unauthorized");
-    }
-
-    const res = await fetch(
+    const data = await fetchData(
       this._serverUrl + createProjectsPath + `/${project.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-        body: JSON.stringify(project),
-      }
+      HttpMethod.PUT,
+      project
     );
-
-    const data = await res.json();
-
-    if (res.status === 401) {
-      throw new Error("Unauthorized");
-    }
-
-    if (res.status !== 200) {
-      throw new Error(data.error);
-    }
 
     return data;
   }
