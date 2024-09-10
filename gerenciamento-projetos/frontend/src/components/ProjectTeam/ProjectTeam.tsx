@@ -62,7 +62,7 @@ export function ProjectTeam() {
       }
     }
     requestData();
-  }, []);
+  }, [showAddMemberModal]);
 
   return (
     <div className="project-container">
@@ -135,6 +135,7 @@ export function ProjectTeam() {
           actionButton={
             <button
               type="button"
+              className="button button-red"
               onClick={() => handleRemoveUser(projectId!, userSelected?.id!)}
             >
               Remover

@@ -12,7 +12,7 @@ interface AddMemberProps {
   members: UserType[];
 }
 
-export function AddMember({ onClose }: AddMemberProps) {
+export function AddMember({ onClose, members }: AddMemberProps) {
   const { message, showToast } = useToast();
   const navigate = useNavigate();
   const { projectId } = useParams();
@@ -38,8 +38,18 @@ export function AddMember({ onClose }: AddMemberProps) {
   useEffect(() => {
     async function requestUsers() {
       try {
-        const userList = await UsersService.getInstance().getUsers();
-        console.log(userList);
+        const response = await UsersService.getInstance().getUsers();
+
+        const userList = response.filter(({ id: userId }: UserType) => {
+          const isMember = members.find(({ id }) => id === userId);
+
+          if (isMember) {
+            return false;
+          }
+
+          return true;
+        });
+
         setUsers(userList);
       } catch (e) {
         if ((e as Error).message === "Unauthorized") {

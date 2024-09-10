@@ -117,4 +117,14 @@ export class ProjectsService {
       HttpMethod.DELETE
     );
   }
+
+  public async addMember(projectId: string, userId: string) {
+    const getProjectsPath = process.env.REACT_APP_PROJECTS_PATH as string;
+
+    await fetchData(
+      this._serverUrl + getProjectsPath + `/${projectId}/users`,
+      HttpMethod.POST,
+      { userId }
+    );
+  }
 }
