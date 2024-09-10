@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import {
   ProjectsService,
   ProjectStatus,
@@ -7,6 +7,7 @@ import {
 import { useToast } from "../../hooks/useToast";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "../Toast/Toast";
+import { formatDateToISO } from "../../utils/format";
 import "./ProjectForm.css";
 
 interface ProjectFormProps {
@@ -24,14 +25,10 @@ export function ProjectForm({ project, onClose }: ProjectFormProps) {
     project?.description
   );
   const [startDate, setStartDate] = useState<string | undefined>(
-    project?.startDate
-      ? new Date(project.startDate).toISOString().split("T")[0]
-      : ""
+    project?.startDate ? formatDateToISO(project?.startDate) : ""
   );
   const [endDate, setEndDate] = useState<string | undefined>(
-    project?.endDate
-      ? new Date(project.endDate).toISOString().split("T")[0]
-      : ""
+    project?.endDate ? formatDateToISO(project?.endDate) : ""
   );
   const [status, setStatus] = useState(
     project?.status ?? ProjectStatus.EM_ANDAMENTO
