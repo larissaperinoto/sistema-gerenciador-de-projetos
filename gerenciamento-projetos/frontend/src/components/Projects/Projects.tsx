@@ -74,6 +74,7 @@ export function Projects() {
             <th>Fim</th>
             <th>Status</th>
             <th>Ações</th>
+            <th>Membros</th>
           </tr>
         </thead>
         <tbody className="projects-table-body">
@@ -109,6 +110,15 @@ export function Projects() {
                       onClick={(e) => handleRemoveProject(e, id!)}
                     >
                       Excluir
+                    </button>
+                  </th>
+                  <th>
+                    <button
+                      type="button"
+                      className="projects-table-members-button"
+                      onClick={() => navigate(`/project/${id}/members`)}
+                    >
+                      Ver membros
                     </button>
                   </th>
                 </tr>
