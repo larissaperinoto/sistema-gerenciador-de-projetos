@@ -3,12 +3,15 @@ import { ProjectsService, ProjectType } from "../../services/projects.service";
 import { useToast } from "../../hooks/useToast";
 import { Toast } from "../Toast/Toast";
 import { useNavigate } from "react-router-dom";
+import { ProjectForm } from "../ProjectForm/ProjectForm";
 import "./Projects.css";
 
 export function Projects() {
   const { message, showToast } = useToast();
   const navigate = useNavigate();
   const [projects, setProjects] = useState<ProjectType[]>([]);
+  const [showProjectForm, setShowProjectForm] = useState<boolean>(false);
+  const [projectSelected, setProjectSelected] = useState<ProjectType>();
 
   function formatDate(date: string) {
     return new Date(date).toLocaleDateString();
@@ -29,7 +32,10 @@ export function Projects() {
     }
   }
 
-  function handleCreateProject() {}
+  async function handleSelectProject(project: ProjectType) {
+    setProjectSelected(project);
+    setShowProjectForm(true);
+  }
 
   useEffect(() => {
     async function requestProjects() {
@@ -47,7 +53,7 @@ export function Projects() {
       }
     }
     requestProjects();
-  }, []);
+  }, [showProjectForm]);
 
   return (
     <div className="projects-table-container">
@@ -55,7 +61,7 @@ export function Projects() {
       <button
         type="button"
         className="add-project-button"
-        onClick={() => handleCreateProject()}
+        onClick={() => setShowProjectForm(true)}
       >
         + Adicionar
       </button>
@@ -78,12 +84,22 @@ export function Projects() {
                   <th>{name}</th>
                   <th>{description}</th>
                   <th>{formatDate(startDate)}</th>
-                  <th>{endDate}</th>
+                  <th>{formatDate(endDate)}</th>
                   <th>{status}</th>
                   <th>
                     <button
                       type="button"
                       className="projects-table-edit-button"
+                      onClick={() =>
+                        handleSelectProject({
+                          id,
+                          name,
+                          description,
+                          startDate,
+                          endDate,
+                          status,
+                        })
+                      }
                     >
                       Editar
                     </button>
@@ -102,6 +118,12 @@ export function Projects() {
         </tbody>
       </table>
       <Toast message={message} onClose={() => showToast(null)} />
+      {showProjectForm && (
+        <ProjectForm
+          setShowProjectForm={setShowProjectForm}
+          project={projectSelected}
+        />
+      )}
     </div>
   );
 }

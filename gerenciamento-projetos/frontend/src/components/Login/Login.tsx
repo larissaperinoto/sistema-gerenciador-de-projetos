@@ -31,7 +31,6 @@ export function Login() {
         await AuthService.getInstance().login({ email, password });
       }
     } catch (e) {
-      console.log(e, (e as Error).message);
       showToast((e as Error).message, {
         duration: 3000,
       });

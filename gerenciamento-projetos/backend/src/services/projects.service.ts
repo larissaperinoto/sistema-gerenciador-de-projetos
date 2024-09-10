@@ -50,7 +50,7 @@ export class ProjectsService implements IProjectService {
     const created = await this._model.create(payload);
 
     return {
-      status: httpStatus.OK,
+      status: httpStatus.Created,
       message: created,
     };
   }
