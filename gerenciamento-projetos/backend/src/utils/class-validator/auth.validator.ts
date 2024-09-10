@@ -5,7 +5,7 @@ import {
   IsString,
   IsStrongPassword,
 } from "class-validator";
-import { RegisterType, RoleTypes } from "../types/register.type";
+import { UserType, RoleTypes } from "../types/register.type";
 
 export class LoginValidatorSchema {
   @IsNotEmpty()
@@ -51,7 +51,7 @@ export class RegisterUserValidatorSchema {
   )
   password: string;
 
-  constructor(register: RegisterType) {
+  constructor(register: UserType) {
     this.name = register.name;
     this.email = register.email;
     this.role = register.role;
