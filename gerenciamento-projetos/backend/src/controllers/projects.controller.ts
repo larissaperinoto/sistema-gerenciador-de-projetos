@@ -34,7 +34,12 @@ export class ProjectsController {
 
   public async remove(req: Request, res: Response) {
     const projectId = req.params["projectId"];
-    const { status } = await this.service.remove(projectId);
+    const { status, message } = await this.service.remove(projectId);
+
+    if (message) {
+      res.status(status!).json(message);
+    }
+
     res.sendStatus(status!);
   }
 }

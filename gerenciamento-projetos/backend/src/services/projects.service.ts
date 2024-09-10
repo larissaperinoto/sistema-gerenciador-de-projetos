@@ -1,6 +1,6 @@
 import Project from "../database/models/projects.model";
 import { httpStatus } from "../utils/httpStatus";
-import { ProjectType } from "../utils/types/project.type";
+import { ProjectStatus, ProjectType } from "../utils/types/project.type";
 import { ServiceResponse } from "../utils/types/responses";
 
 export interface IProjectService {
@@ -68,6 +68,20 @@ export class ProjectsService implements IProjectService {
     };
   }
   public async remove(projectId: string) {
+    const response = await this.findOne({
+      id: projectId,
+      status: ProjectStatus.CONCLUIDO,
+    });
+
+    if (!response.message) {
+      return {
+        status: httpStatus.BadRequest,
+        message: {
+          error: "Não é possível remover um projeto que não esteja concluído.",
+        },
+      };
+    }
+
     await this._model.destroy({ where: { id: projectId } });
 
     return {

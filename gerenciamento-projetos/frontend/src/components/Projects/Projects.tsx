@@ -22,6 +22,7 @@ export function Projects() {
       await ProjectsService.getInstance().removeProject(projectId);
       setProjects((prev) => prev.filter(({ id }) => id !== projectId));
       setShowRemoveProjectAlert(false);
+      setProjectSelected(undefined);
     } catch (e) {
       if ((e as Error).message === "Unauthorized") {
         navigate("/");
@@ -31,11 +32,6 @@ export function Projects() {
         });
       }
     }
-  }
-
-  async function handleSelectProject(project: ProjectType) {
-    setProjectSelected(project);
-    setShowProjectForm(true);
   }
 
   useEffect(() => {
@@ -92,16 +88,17 @@ export function Projects() {
                     <button
                       type="button"
                       className="button button-green"
-                      onClick={() =>
-                        handleSelectProject({
+                      onClick={() => {
+                        setProjectSelected({
                           id,
                           name,
                           description,
                           startDate,
                           endDate,
                           status,
-                        })
-                      }
+                        });
+                        setShowProjectForm(true);
+                      }}
                     >
                       Editar
                     </button>
@@ -140,10 +137,7 @@ export function Projects() {
       </table>
       <Toast message={message} onClose={() => showToast(null)} />
       {showProjectForm && (
-        <ProjectForm
-          setShowProjectForm={setShowProjectForm}
-          project={projectSelected}
-        />
+        <ProjectForm onClose={setShowProjectForm} project={projectSelected} />
       )}
       {showRemoveProjectAlert && (
         <ModalAlert

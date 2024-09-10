@@ -14,12 +14,13 @@ export function EditMember({ member, onClose }: IEditMember) {
   const { message, showToast } = useToast();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState<UserType>(member);
+  const [user, setUser] = useState<UserType | null>(member);
   const [role, setRole] = useState<UserRole>();
 
   async function handleEditUser(userId: string, role: string) {
     try {
       await UsersService.getInstance().changeRole(userId, role);
+      setUser(null);
       onClose(false);
     } catch (e) {
       if ((e as Error).message === "Unauthorized") {
@@ -43,8 +44,8 @@ export function EditMember({ member, onClose }: IEditMember) {
           X
         </button>
         <form className="form">
-          <input type="text" disabled className="input" value={user.name} />
-          <input type="text" disabled className="input" value={user.email} />
+          <input type="text" disabled className="input" value={user?.name} />
+          <input type="text" disabled className="input" value={user?.email} />
           <select
             onChange={(e) => setRole(e.target.value as UserRole)}
             value={role}

@@ -11,22 +11,24 @@ import "./ProjectForm.css";
 
 interface ProjectFormProps {
   project?: ProjectType;
-  setShowProjectForm: Dispatch<SetStateAction<boolean>>;
+  onClose: (status: boolean) => void;
 }
 
-export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
+export function ProjectForm({ project, onClose }: ProjectFormProps) {
   const { message, showToast } = useToast();
   const navigate = useNavigate();
 
-  const [id, setId] = useState(project?.id);
-  const [name, setName] = useState(project?.name);
-  const [description, setDescription] = useState(project?.description);
-  const [startDate, setStartDate] = useState(
+  const [id, setId] = useState<string | undefined>(project?.id);
+  const [name, setName] = useState<string | undefined>(project?.name);
+  const [description, setDescription] = useState<string | undefined>(
+    project?.description
+  );
+  const [startDate, setStartDate] = useState<string | undefined>(
     project?.startDate
       ? new Date(project.startDate).toISOString().split("T")[0]
       : ""
   );
-  const [endDate, setEndDate] = useState(
+  const [endDate, setEndDate] = useState<string | undefined>(
     project?.endDate
       ? new Date(project.endDate).toISOString().split("T")[0]
       : ""
@@ -78,7 +80,7 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
 
     try {
       await ProjectsService.getInstance().createProject(project);
-      setShowProjectForm(false);
+      onClose(false);
     } catch (e) {
       if ((e as Error).message === "Unauthorized") {
         navigate("/");
@@ -93,7 +95,7 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
   async function handleUpdateProject(project: Partial<ProjectType>) {
     try {
       await ProjectsService.getInstance().updateProject(project);
-      setShowProjectForm(false);
+      onClose(false);
     } catch (e) {
       if ((e as Error).message === "Unauthorized") {
         navigate("/");
@@ -111,7 +113,7 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
         <button
           type="button"
           className="modal-close-button"
-          onClick={() => setShowProjectForm(false)}
+          onClick={() => onClose(false)}
         >
           X
         </button>
