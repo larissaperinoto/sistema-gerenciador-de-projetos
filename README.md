@@ -283,7 +283,7 @@ Os itens estão separados por níveis, e o nível 1 é o mínimo que esperamos q
 | [X] | Editar um projeto               | F B   |
 | [X] | Remover um projeto              | F B   |
 | [X] | Listar usuários em projetos     | F B   |
-| [ ] | Cadastrar usuários em projetos  | F B   |
+| [X] | Cadastrar usuários em projetos  | F B   |
 | [X] | Remover usuários em projetos    | F B   |
 | [X] | Tipagem de dados                | F B   |
 | [X] | Registro de usuários no sistema | F B   |
