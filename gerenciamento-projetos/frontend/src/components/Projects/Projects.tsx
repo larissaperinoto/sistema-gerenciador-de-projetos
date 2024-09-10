@@ -61,13 +61,13 @@ export function Projects() {
       <h1>Projetos</h1>
       <button
         type="button"
-        className="button button-top-right button-blue"
+        className="button button-blue add-project-button-position"
         onClick={() => setShowProjectForm(true)}
       >
         + Adicionar
       </button>
-      <table className="projects-table">
-        <thead className="projects-table-header">
+      <table className="table">
+        <thead>
           <tr>
             <th>Projeto</th>
             <th>Descrição</th>
@@ -78,7 +78,7 @@ export function Projects() {
             <th>Membros</th>
           </tr>
         </thead>
-        <tbody className="projects-table-body">
+        <tbody className="table-body">
           {projects.map(
             ({ id, name, description, startDate, endDate, status }) => {
               return (
@@ -88,7 +88,7 @@ export function Projects() {
                   <th>{formatDateToString(startDate)}</th>
                   <th>{formatDateToString(endDate)}</th>
                   <th>{status}</th>
-                  <th>
+                  <th className="table-flex-cell">
                     <button
                       type="button"
                       className="button button-green"

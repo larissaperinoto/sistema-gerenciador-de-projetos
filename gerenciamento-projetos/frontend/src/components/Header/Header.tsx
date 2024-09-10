@@ -32,7 +32,15 @@ export function Header() {
   return (
     <header>
       <p>{`Olá, ${loggedInUser?.name}`}</p>
-      <button className="button">Sair</button>
+      <button
+        className="button"
+        onClick={() => {
+          navigate("/");
+          localStorage.clear();
+        }}
+      >
+        Sair
+      </button>
       <Toast message={message} onClose={() => showToast(null)} />
     </header>
   );

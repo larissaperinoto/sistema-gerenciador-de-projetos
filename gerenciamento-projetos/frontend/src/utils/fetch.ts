@@ -14,15 +14,11 @@ export async function fetchData(
 ) {
   const token = AuthService.getInstance().getToken();
 
-  if (!token) {
-    throw new Error("Unauthorized");
-  }
-
   const res = await fetch(url, {
     method: method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: token,
+      Authorization: token ?? "",
     },
     body: JSON.stringify(body),
   });

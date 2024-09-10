@@ -78,14 +78,14 @@ export function ProjectTeam() {
         <p className="project-info">{`Status: ${project?.status}`}</p>
         <button
           type="button"
-          className="button button-top-right button-blue"
+          className="button button-blue button-position"
           onClick={() => setShowAddMemberModal(true)}
         >
           + Adicionar Membro
         </button>
       </div>
 
-      <table className="project-members-table">
+      <table className="table">
         <thead className="projects-members-table-header">
           <tr>
             <th>Nome</th>
@@ -102,7 +102,7 @@ export function ProjectTeam() {
                 <th>{email}</th>
                 <th>{role}</th>
 
-                <th>
+                <th className="table-flex-cell">
                   <button type="button" className="button button-green">
                     Editar
                   </button>

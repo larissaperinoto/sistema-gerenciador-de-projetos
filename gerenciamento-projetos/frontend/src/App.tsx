@@ -9,8 +9,8 @@ import { ProjectTeam } from "./components/ProjectTeam/ProjectTeam";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Main content={<Login />} />} />
-      <Route path="/register" element={<Main content={<Register />} />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Main content={<Projects />} />} />
       <Route
         path="/project/:projectId/members"
