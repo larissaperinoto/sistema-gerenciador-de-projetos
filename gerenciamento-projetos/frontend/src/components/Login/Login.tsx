@@ -11,9 +11,10 @@ export function Login() {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
 
-  async function handleLogin(e: any) {
-    e.preventDefault();
-
+  async function handleLogin(
+    email: string | undefined,
+    password: string | undefined
+  ) {
     if (!email) {
       showToast("Insira um e-mail para prosseguir.", {
         duration: 3000,
@@ -59,7 +60,7 @@ export function Login() {
         <button
           type="button"
           className="button button-blue width-total"
-          onClick={(e) => handleLogin(e)}
+          onClick={() => handleLogin(email, password)}
         >
           Entrar
         </button>
