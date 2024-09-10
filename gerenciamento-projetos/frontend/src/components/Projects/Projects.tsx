@@ -64,7 +64,7 @@ export function Projects() {
       <h1>Projetos</h1>
       <button
         type="button"
-        className="add-project-button"
+        className="button button-top-right button-blue"
         onClick={() => setShowProjectForm(true)}
       >
         + Adicionar
@@ -94,7 +94,7 @@ export function Projects() {
                   <th>
                     <button
                       type="button"
-                      className="projects-table-edit-button"
+                      className="button button-green"
                       onClick={() =>
                         handleSelectProject({
                           id,
@@ -110,7 +110,7 @@ export function Projects() {
                     </button>
                     <button
                       type="button"
-                      className="projects-table-remove-button"
+                      className="button button-red"
                       onClick={() => {
                         setShowRemoveProjectAlert(true);
                         setProjectSelected({
@@ -129,7 +129,7 @@ export function Projects() {
                   <th>
                     <button
                       type="button"
-                      className="projects-table-members-button"
+                      className="button"
                       onClick={() => navigate(`/project/${id}/members`)}
                     >
                       Ver membros
