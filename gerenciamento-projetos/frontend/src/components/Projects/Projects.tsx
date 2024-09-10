@@ -5,6 +5,7 @@ import { Toast } from "../Toast/Toast";
 import { useNavigate } from "react-router-dom";
 import { ProjectForm } from "../ProjectForm/ProjectForm";
 import { ModalAlert } from "../ModalAlert/ModalAlert";
+import { formatDateToString } from "../../utils/format";
 import "./Projects.css";
 
 export function Projects() {
@@ -15,10 +16,6 @@ export function Projects() {
   const [showRemoveProjectAlert, setShowRemoveProjectAlert] =
     useState<boolean>(false);
   const [projectSelected, setProjectSelected] = useState<ProjectType>();
-
-  function formatDate(date: string) {
-    return new Date(date).toLocaleDateString();
-  }
 
   async function handleRemoveProject(projectId: string) {
     try {
@@ -88,8 +85,8 @@ export function Projects() {
                 <tr key={id}>
                   <th>{name}</th>
                   <th>{description}</th>
-                  <th>{formatDate(startDate)}</th>
-                  <th>{formatDate(endDate)}</th>
+                  <th>{formatDateToString(startDate)}</th>
+                  <th>{formatDateToString(endDate)}</th>
                   <th>{status}</th>
                   <th>
                     <button
@@ -155,6 +152,7 @@ export function Projects() {
           actionButton={
             <button
               type="button"
+              className="button button-red"
               onClick={() => handleRemoveProject(projectSelected?.id!)}
             >
               Remover
