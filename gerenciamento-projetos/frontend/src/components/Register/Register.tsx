@@ -11,7 +11,7 @@ export function Register() {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [name, setName] = useState<string>();
-  const [role, setRole] = useState<UserRole>();
+  const [role, setRole] = useState<UserRole>(UserRole.GERENTE);
 
   async function handleRegister(e: any) {
     e.preventDefault();
@@ -86,9 +86,11 @@ export function Register() {
           onChange={(e) => setRole(e.target.value as UserRole)}
           value={role}
         >
-          <option value="Gerente">Gerente</option>
-          <option value="Desenvolvedor">Desenvolvedor</option>
-          <option value="Designer">Designer</option>
+          <option value={UserRole.GERENTE}>{UserRole.GERENTE}</option>
+          <option value={UserRole.DESENVOLVEDOR}>
+            {UserRole.DESENVOLVEDOR}
+          </option>
+          <option value={UserRole.DESIGNER}>{UserRole.DESIGNER}</option>
         </select>
         <button
           type="button"
