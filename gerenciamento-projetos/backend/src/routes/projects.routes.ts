@@ -37,6 +37,10 @@ const projectsUsersController = new ProjectsUsersController(
 route.use(authMiddleware);
 
 route.get("/projects", projectsController.findAll.bind(projectsController));
+route.get(
+  "/projects/:projectId",
+  projectsController.findOne.bind(projectsController)
+);
 
 route.get(
   "/projects/:projectId/users",

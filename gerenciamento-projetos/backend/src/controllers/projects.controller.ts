@@ -13,6 +13,13 @@ export class ProjectsController {
     res.status(status).json(message);
   }
 
+  public async findOne(req: Request, res: Response) {
+    const id = req.params["projectId"];
+
+    const { status, message } = await this.service.findOne({ id });
+    res.status(status).json(message);
+  }
+
   public async insert(req: Request, res: Response) {
     const { status, message } = await this.service.insert(req.body);
     res.status(status).json(message);
