@@ -5,6 +5,7 @@ import { Toast } from "../Toast/Toast";
 import { useToast } from "../../hooks/useToast";
 import { UserType } from "../../services/auth.service";
 import "./ProjectTeam.css";
+import { ModalAlert } from "../ModalAlert/ModalAlert";
 
 export function ProjectTeam() {
   const { message, showToast } = useToast();
@@ -13,8 +14,27 @@ export function ProjectTeam() {
   const [project, setProject] = useState<ProjectType>();
   const [members, setMembers] = useState<UserType[]>([]);
   const [showAddMemberForm, setShowAddMemberForm] = useState(false);
+  const [showRemoveUserAlert, setShowRemoveUserAlert] =
+    useState<boolean>(false);
+  const [userSelected, setUserSelected] = useState<Partial<UserType>>();
 
   const { projectId } = useParams();
+
+  async function handleRemoveUser(projectId: string, userId: string) {
+    try {
+      await ProjectsService.getInstance().removeMember(projectId, userId);
+      setMembers((prev) => prev.filter(({ id }) => id !== userId));
+      setShowRemoveUserAlert(false);
+    } catch (e) {
+      if ((e as Error).message === "Unauthorized") {
+        navigate("/");
+      } else {
+        showToast((e as Error).message, {
+          duration: 6000,
+        });
+      }
+    }
+  }
 
   useEffect(() => {
     async function requestData() {
@@ -80,7 +100,19 @@ export function ProjectTeam() {
                   <button type="button" className="button button-green">
                     Editar
                   </button>
-                  <button type="button" className="button button-red">
+                  <button
+                    type="button"
+                    className="button button-red"
+                    onClick={() => {
+                      setShowRemoveUserAlert(true);
+                      setUserSelected({
+                        id,
+                        name,
+                        email,
+                        role,
+                      });
+                    }}
+                  >
                     Excluir
                   </button>
                 </th>
@@ -90,6 +122,20 @@ export function ProjectTeam() {
         </tbody>
       </table>
       <Toast message={message} onClose={() => showToast(null)} />
+      {showRemoveUserAlert && (
+        <ModalAlert
+          text={`Tem certeza de que deseja prosseguir na remoção do usuário ${userSelected?.name}?`}
+          onClose={setShowRemoveUserAlert}
+          actionButton={
+            <button
+              type="button"
+              onClick={() => handleRemoveUser(projectId!, userSelected?.id!)}
+            >
+              Remover
+            </button>
+          }
+        />
+      )}
     </div>
   );
 }
