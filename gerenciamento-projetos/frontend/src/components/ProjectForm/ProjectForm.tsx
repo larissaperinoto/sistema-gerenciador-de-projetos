@@ -17,8 +17,16 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
   const [id, setId] = useState(project?.id);
   const [name, setName] = useState(project?.name);
   const [description, setDescription] = useState(project?.description);
-  const [startDate, setStartDate] = useState(project?.startDate);
-  const [endDate, setEndDate] = useState(project?.endDate);
+  const [startDate, setStartDate] = useState(
+    project?.startDate
+      ? new Date(project.startDate).toISOString().split("T")[0]
+      : ""
+  );
+  const [endDate, setEndDate] = useState(
+    project?.endDate
+      ? new Date(project.endDate).toISOString().split("T")[0]
+      : ""
+  );
   const [status, setStatus] = useState(project?.status);
 
   function validateFields({
@@ -79,6 +87,7 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
   async function handleUpdateProject(project: Partial<ProjectType>) {
     try {
       await ProjectsService.getInstance().updateProject(project);
+      setShowProjectForm(false);
     } catch (e) {
       if ((e as Error).message === "Unauthorized") {
         navigate("/");
@@ -130,10 +139,12 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
             value={endDate}
           />
 
-          <select onChange={(e) => setStatus(e.target.value)} value={status}>
-            <option selected value="Em andamento">
-              Em andamento
-            </option>
+          <select
+            onChange={(e) => setStatus(e.target.value)}
+            value={status}
+            defaultValue="Em andamento"
+          >
+            <option value="Em andamento">Em andamento</option>
             <option value="Concluído">Concluído</option>
             <option value="Pendente">Pendente</option>
           </select>

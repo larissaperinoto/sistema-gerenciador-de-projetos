@@ -104,7 +104,7 @@ export class ProjectsService {
     if (!token) {
       throw new Error("Unauthorized");
     }
-    console.log(startDate);
+
     const res = await fetch(this._serverUrl + createProjectsPath, {
       method: "POST",
       headers: {
@@ -121,7 +121,7 @@ export class ProjectsService {
     });
 
     const data = await res.json();
-    console.log(data, startDate);
+
     if (res.status === 401) {
       throw new Error("Unauthorized");
     }
@@ -142,14 +142,17 @@ export class ProjectsService {
       throw new Error("Unauthorized");
     }
 
-    const res = await fetch(this._serverUrl + createProjectsPath, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-      body: JSON.stringify(project),
-    });
+    const res = await fetch(
+      this._serverUrl + createProjectsPath + `/${project.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(project),
+      }
+    );
 
     const data = await res.json();
 
