@@ -9,13 +9,19 @@ interface ModalAlertProps {
 
 export function ModalAlert({ text, actionButton, onClose }: ModalAlertProps) {
   return (
-    <div className="modal-alert">
-      <p className="modal-alert-text">{text}</p>
-      <div className="modal-alert-buttons-container">
-        <button type="button" onClick={() => onClose(false)}>
-          Voltar
-        </button>
-        {actionButton}
+    <div className="modal-container">
+      <div className="modal">
+        <p className="modal-alert-text">{text}</p>
+        <div className="modal-alert-buttons-container">
+          <button
+            type="button"
+            className="button button-gray"
+            onClick={() => onClose(false)}
+          >
+            Voltar
+          </button>
+          {actionButton}
+        </div>
       </div>
     </div>
   );

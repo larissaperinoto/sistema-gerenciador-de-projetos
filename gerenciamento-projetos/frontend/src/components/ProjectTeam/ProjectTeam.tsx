@@ -4,8 +4,10 @@ import { ProjectsService, ProjectType } from "../../services/projects.service";
 import { Toast } from "../Toast/Toast";
 import { useToast } from "../../hooks/useToast";
 import { UserType } from "../../services/auth.service";
-import "./ProjectTeam.css";
 import { ModalAlert } from "../ModalAlert/ModalAlert";
+import { AddMember } from "../AddMember/AddMember";
+import { formatDateToString } from "../../utils/format";
+import "./ProjectTeam.css";
 
 export function ProjectTeam() {
   const { message, showToast } = useToast();
@@ -13,7 +15,7 @@ export function ProjectTeam() {
 
   const [project, setProject] = useState<ProjectType>();
   const [members, setMembers] = useState<UserType[]>([]);
-  const [showAddMemberForm, setShowAddMemberForm] = useState(false);
+  const [showAddMemberModal, setShowAddMemberModal] = useState(false);
   const [showRemoveUserAlert, setShowRemoveUserAlert] =
     useState<boolean>(false);
   const [userSelected, setUserSelected] = useState<Partial<UserType>>();
@@ -67,13 +69,17 @@ export function ProjectTeam() {
       <h1>{project?.name}</h1>
       <p className="project-description">{`${project?.description}`}</p>
       <div className="project-infos">
-        <p className="project-info">{`Data de início: ${project?.startDate}`}</p>
-        <p className="project-info">{`Data de finalização: ${project?.endDate}`}</p>
+        <p className="project-info">{`Data de início: ${formatDateToString(
+          project?.startDate
+        )}`}</p>
+        <p className="project-info">{`Data de finalização: ${formatDateToString(
+          project?.endDate
+        )}`}</p>
         <p className="project-info">{`Status: ${project?.status}`}</p>
         <button
           type="button"
           className="button button-top-right button-blue"
-          onClick={() => setShowAddMemberForm(true)}
+          onClick={() => setShowAddMemberModal(true)}
         >
           + Adicionar Membro
         </button>
@@ -135,6 +141,9 @@ export function ProjectTeam() {
             </button>
           }
         />
+      )}
+      {showAddMemberModal && (
+        <AddMember onClose={setShowAddMemberModal} members={members} />
       )}
     </div>
   );

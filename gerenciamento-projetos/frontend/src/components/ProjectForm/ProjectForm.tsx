@@ -106,11 +106,11 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
   }
 
   return (
-    <div className="project-form-container">
-      <div className="project-form-container-2">
+    <div className="modal-container">
+      <div className="modal">
         <button
           type="button"
-          className="project-form-close-button"
+          className="modal-close-button"
           onClick={() => setShowProjectForm(false)}
         >
           X
@@ -119,28 +119,28 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
           <input
             type="text"
             placeholder="Nome"
-            className="project-form-input"
+            className="input"
             onChange={(e) => setName(e.target.value)}
             value={name}
           />
           <input
             type="text"
             placeholder="Descrição"
-            className="project-form-input"
+            className="input"
             onChange={(e) => setDescription(e.target.value)}
             value={description}
           />
           <input
             type="date"
             placeholder="Data de início"
-            className="project-form-input"
+            className="input"
             onChange={(e) => setStartDate(e.target.value)}
             value={startDate}
           />
           <input
             type="date"
             placeholder="Data de finalização"
-            className="project-form-input"
+            className="input"
             onChange={(e) => setEndDate(e.target.value)}
             value={endDate}
           />
@@ -151,6 +151,7 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
             }
             value={status}
             defaultValue={ProjectStatus.EM_ANDAMENTO}
+            className="input"
           >
             <option value={ProjectStatus.EM_ANDAMENTO}>
               {ProjectStatus.EM_ANDAMENTO}
@@ -165,7 +166,7 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
           {id ? (
             <button
               type="button"
-              className="project-form-update-button"
+              className="button button-green width-total"
               onClick={() =>
                 handleUpdateProject({
                   id,
@@ -182,7 +183,7 @@ export function ProjectForm({ project, setShowProjectForm }: ProjectFormProps) {
           ) : (
             <button
               type="button"
-              className="project-form-create-button"
+              className="button button-blue width-total"
               onClick={() =>
                 handleCreateProject({
                   name,
