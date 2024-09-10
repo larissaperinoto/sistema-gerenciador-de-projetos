@@ -86,4 +86,26 @@ export class ProjectsService {
 
     return data;
   }
+
+  public async getProject(projectId: string) {
+    const projectsPath = process.env.REACT_APP_PROJECTS_PATH as string;
+
+    const data = await fetchData(
+      this._serverUrl + projectsPath + `/${projectId}`,
+      HttpMethod.GET
+    );
+
+    return data;
+  }
+
+  public async getMembers(projectId: string) {
+    const projectsPath = process.env.REACT_APP_PROJECTS_PATH as string;
+
+    const data = await fetchData(
+      this._serverUrl + projectsPath + `/${projectId}/users`,
+      HttpMethod.GET
+    );
+
+    return data;
+  }
 }
