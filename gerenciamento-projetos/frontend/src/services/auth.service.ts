@@ -63,4 +63,12 @@ export class AuthService {
 
     this.saveToken(data.token);
   }
+
+  public async getLoggedInUser() {
+    const registerPath = process.env.REACT_APP_REGISTER_PATH as string;
+
+    const data = await fetchData(this._serverUrl + "/auth/me", HttpMethod.GET);
+
+    return data;
+  }
 }
