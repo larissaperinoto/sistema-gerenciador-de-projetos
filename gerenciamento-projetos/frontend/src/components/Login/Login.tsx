@@ -45,27 +45,27 @@ export function Login() {
         <input
           type="email"
           placeholder="Email"
-          className="login-input"
+          className="input"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
         <input
           type="password"
           placeholder="Senha"
-          className="login-input"
+          className="input"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
         <button
           type="button"
-          className="login-register-button"
+          className="button button-blue width-total"
           onClick={(e) => handleLogin(e)}
         >
           Entrar
         </button>
         <button
           type="button"
-          className="login-register-button"
+          className="button button-green width-total"
           onClick={() => navigate("/register")}
         >
           Cria conta

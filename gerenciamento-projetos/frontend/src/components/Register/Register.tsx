@@ -64,27 +64,28 @@ export function Register() {
         <input
           type="email"
           placeholder="Email"
-          className="register-input"
+          className="input"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
         <input
           type="password"
           placeholder="Password"
-          className="register-input"
+          className="input"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
         <input
           type="text"
           placeholder="Nome"
-          className="register-input"
+          className="input"
           onChange={(e) => setName(e.target.value)}
           value={name}
         />
         <select
           onChange={(e) => setRole(e.target.value as UserRole)}
           value={role}
+          className="input"
         >
           <option value={UserRole.GERENTE}>{UserRole.GERENTE}</option>
           <option value={UserRole.DESENVOLVEDOR}>
@@ -95,9 +96,16 @@ export function Register() {
         <button
           type="button"
           onClick={(e) => handleRegister(e)}
-          className="register-button"
+          className="button button-blue width-total"
         >
           Cadastrar
+        </button>
+        <button
+          type="button"
+          onClick={() => navigate("/")}
+          className="button button-gray width-total"
+        >
+          Voltar
         </button>
       </form>
       <Toast message={message} onClose={() => showToast(null)} />
