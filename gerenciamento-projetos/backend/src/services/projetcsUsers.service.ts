@@ -59,7 +59,7 @@ export class ProjectsUsersService implements IProjectsUsersService {
     projectId: string,
     { userId }: { userId: string }
   ) {
-    const user = await this._usersService.getUser({ id: userId });
+    const user = await this._usersService.getUser({ user: { id: userId } });
 
     if (!user.message) {
       return {

@@ -8,7 +8,9 @@ import generateToken from "../utils/generateToken";
 export interface IAuthService {
   register: (payload: RegisterType) => Promise<ServiceResponse>;
   login: (payload: Partial<RegisterType>) => Promise<ServiceResponse>;
-  getUser: (payload: Partial<RegisterType>) => Promise<ServiceResponse>;
+  getUser: (payload: {
+    user: Partial<RegisterType>;
+  }) => Promise<ServiceResponse>;
 }
 
 export class AuthService implements IAuthService {
@@ -87,9 +89,11 @@ export class AuthService implements IAuthService {
     };
   }
 
-  public async getUser(payload: Partial<RegisterType>) {
+  public async getUser(payload: { user: Partial<RegisterType> }) {
+    const { email, id } = payload.user;
+
     const user = await this._model.findOne({
-      where: payload,
+      where: { email, id },
       attributes: { exclude: ["password"] },
     });
 

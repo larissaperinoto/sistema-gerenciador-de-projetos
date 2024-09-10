@@ -12,7 +12,7 @@ const authMiddleware: RequestHandler = async (req, res, next) => {
 
   try {
     const user = jwt.verify(authorization, process.env.JWT_SECRET as string);
-    req.body = user;
+    req.body.user = user;
     next();
   } catch (error) {
     return res
