@@ -103,9 +103,6 @@ export function ProjectTeam() {
                 <th>{role}</th>
 
                 <th className="table-flex-cell">
-                  <button type="button" className="button button-green">
-                    Editar
-                  </button>
                   <button
                     type="button"
                     className="button button-red"
