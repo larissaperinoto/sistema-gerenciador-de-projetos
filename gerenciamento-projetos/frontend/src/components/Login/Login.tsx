@@ -29,6 +29,7 @@ export function Login() {
     try {
       if (email && password) {
         await AuthService.getInstance().login({ email, password });
+        navigate("/dashboard");
       }
     } catch (e) {
       showToast((e as Error).message, {
