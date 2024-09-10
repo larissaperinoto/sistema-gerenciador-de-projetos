@@ -1,16 +1,14 @@
 import User from "../database/models/users.model";
 import bcrypt from "bcrypt";
 import { httpStatus } from "../utils/httpStatus";
-import { RegisterType } from "../utils/types/register.type";
+import { UserType } from "../utils/types/register.type";
 import { ServiceResponse } from "../utils/types/responses";
 import generateToken from "../utils/generateToken";
 
 export interface IAuthService {
-  register: (payload: RegisterType) => Promise<ServiceResponse>;
-  login: (payload: Partial<RegisterType>) => Promise<ServiceResponse>;
-  getUser: (payload: {
-    user: Partial<RegisterType>;
-  }) => Promise<ServiceResponse>;
+  register: (payload: UserType) => Promise<ServiceResponse>;
+  login: (payload: Partial<UserType>) => Promise<ServiceResponse>;
+  getUser: (payload: { user: Partial<UserType> }) => Promise<ServiceResponse>;
 }
 
 export class AuthService implements IAuthService {
@@ -20,7 +18,7 @@ export class AuthService implements IAuthService {
     this._model = model;
   }
 
-  public async register(payload: RegisterType) {
+  public async register(payload: UserType) {
     const { name, email, password, role } = payload;
 
     const saltOrRounds = 10;
@@ -57,7 +55,7 @@ export class AuthService implements IAuthService {
       },
     };
   }
-  public async login(payload: Partial<RegisterType>) {
+  public async login(payload: Partial<UserType>) {
     const { email, password } = payload;
     const user = await this._model.findOne({ where: { email } });
 
@@ -89,7 +87,7 @@ export class AuthService implements IAuthService {
     };
   }
 
-  public async getUser(payload: { user: Partial<RegisterType> }) {
+  public async getUser(payload: { user: Partial<UserType> }) {
     const { email, id } = payload.user;
 
     let where = {};

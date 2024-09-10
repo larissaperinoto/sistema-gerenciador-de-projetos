@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes";
 import projectsRoutes from "./routes/projects.routes";
+import usersRoutes from "./routes/users.routes";
 
 class App {
   public app: Express;
@@ -13,6 +14,7 @@ class App {
 
     this.app.use("/api", authRoutes);
     this.app.use("/api", projectsRoutes);
+    this.app.use("/api", usersRoutes);
   }
 
   private config(): void {
