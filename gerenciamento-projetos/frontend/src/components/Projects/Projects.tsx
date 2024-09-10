@@ -4,6 +4,7 @@ import { useToast } from "../../hooks/useToast";
 import { Toast } from "../Toast/Toast";
 import { useNavigate } from "react-router-dom";
 import { ProjectForm } from "../ProjectForm/ProjectForm";
+import { ModalAlert } from "../ModalAlert/ModalAlert";
 import "./Projects.css";
 
 export function Projects() {
@@ -11,16 +12,19 @@ export function Projects() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [showProjectForm, setShowProjectForm] = useState<boolean>(false);
+  const [showRemoveProjectAlert, setShowRemoveProjectAlert] =
+    useState<boolean>(false);
   const [projectSelected, setProjectSelected] = useState<ProjectType>();
 
   function formatDate(date: string) {
     return new Date(date).toLocaleDateString();
   }
 
-  async function handleRemoveProject(e: any, projectId: string) {
-    e.preventDefault();
+  async function handleRemoveProject(projectId: string) {
     try {
       await ProjectsService.getInstance().removeProject(projectId);
+      setProjects((prev) => prev.filter(({ id }) => id !== projectId));
+      setShowRemoveProjectAlert(false);
     } catch (e) {
       if ((e as Error).message === "Unauthorized") {
         navigate("/");
@@ -107,7 +111,17 @@ export function Projects() {
                     <button
                       type="button"
                       className="projects-table-remove-button"
-                      onClick={(e) => handleRemoveProject(e, id!)}
+                      onClick={() => {
+                        setShowRemoveProjectAlert(true);
+                        setProjectSelected({
+                          id,
+                          name,
+                          description,
+                          startDate,
+                          endDate,
+                          status,
+                        });
+                      }}
                     >
                       Excluir
                     </button>
@@ -132,6 +146,20 @@ export function Projects() {
         <ProjectForm
           setShowProjectForm={setShowProjectForm}
           project={projectSelected}
+        />
+      )}
+      {showRemoveProjectAlert && (
+        <ModalAlert
+          text={`Tem certeza de que deseja prosseguir na remoção do projeto ${projectSelected?.name}?`}
+          onClose={setShowRemoveProjectAlert}
+          actionButton={
+            <button
+              type="button"
+              onClick={() => handleRemoveProject(projectSelected?.id!)}
+            >
+              Remover
+            </button>
+          }
         />
       )}
     </div>
