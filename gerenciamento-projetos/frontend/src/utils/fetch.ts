@@ -27,14 +27,18 @@ export async function fetchData(
     body: JSON.stringify(body),
   });
 
-  const data = await res.json();
+  if (res.status === 204) {
+    return;
+  }
 
   if (res.status === 401) {
     throw new Error("Unauthorized");
   }
 
-  if (res.status !== 200 && res.status !== 201 && res.status !== 204) {
-    throw new Error(data.error);
+  const data = await res.json();
+
+  if (res.status !== 200 && res.status !== 201) {
+    throw new Error(data?.error);
   }
 
   return data;
