@@ -22,7 +22,6 @@ export function Projects() {
       await ProjectsService.getInstance().removeProject(projectId);
       setProjects((prev) => prev.filter(({ id }) => id !== projectId));
       setShowRemoveProjectAlert(false);
-      setProjectSelected(undefined);
     } catch (e) {
       if ((e as Error).message === "Unauthorized") {
         navigate("/");
@@ -51,7 +50,7 @@ export function Projects() {
     }
     requestProjects();
     setProjectSelected(undefined);
-  }, [showProjectForm]);
+  }, [showProjectForm, showRemoveProjectAlert]);
 
   return (
     <div className="container">
