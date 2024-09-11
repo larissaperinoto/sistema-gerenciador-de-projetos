@@ -69,7 +69,7 @@ export function ProjectForm({ project, onClose }: ProjectFormProps) {
     }
 
     if (!isStartDateValid(startDate)) {
-      showToast("A data de início deve ser menor do que a data atual.", {
+      showToast("A data de início não deve ser menor do que a data atual.", {
         duration: 6000,
       });
       return;

@@ -50,6 +50,7 @@ export function Projects() {
       }
     }
     requestProjects();
+    setProjectSelected(undefined);
   }, [showProjectForm]);
 
   return (
