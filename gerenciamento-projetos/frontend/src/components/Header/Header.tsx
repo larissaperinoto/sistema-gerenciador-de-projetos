@@ -31,16 +31,18 @@ export function Header() {
 
   return (
     <header>
-      <p>{`Olá, ${loggedInUser?.name}`}</p>
-      <button
-        className="button"
-        onClick={() => {
-          navigate("/");
-          localStorage.clear();
-        }}
-      >
-        Sair
-      </button>
+      <div>
+        <p>{`Olá, ${loggedInUser?.name}`}</p>
+        <button
+          className="button"
+          onClick={() => {
+            navigate("/");
+            localStorage.clear();
+          }}
+        >
+          Sair
+        </button>
+      </div>
       <Toast message={message} onClose={() => showToast(null)} />
     </header>
   );
