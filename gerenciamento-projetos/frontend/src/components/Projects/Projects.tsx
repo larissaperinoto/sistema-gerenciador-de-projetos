@@ -23,13 +23,9 @@ export function Projects() {
       setProjects((prev) => prev.filter(({ id }) => id !== projectId));
       setShowRemoveProjectAlert(false);
     } catch (e) {
-      if ((e as Error).message === "Unauthorized") {
-        navigate("/");
-      } else {
-        showToast((e as Error).message, {
-          duration: 6000,
-        });
-      }
+      showToast((e as Error).message, {
+        duration: 6000,
+      });
     }
   }
 
@@ -39,13 +35,9 @@ export function Projects() {
         const projectList = await ProjectsService.getInstance().getProjects();
         setProjects(projectList);
       } catch (e) {
-        if ((e as Error).message === "Unauthorized") {
-          navigate("/");
-        } else {
-          showToast((e as Error).message, {
-            duration: 3000,
-          });
-        }
+        showToast((e as Error).message, {
+          duration: 3000,
+        });
       }
     }
     requestProjects();

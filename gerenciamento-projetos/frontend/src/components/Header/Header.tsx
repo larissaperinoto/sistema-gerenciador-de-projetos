@@ -17,13 +17,9 @@ export function Header() {
         const user = await AuthService.getInstance().getLoggedInUser();
         setLoggedInUser(user);
       } catch (e) {
-        if ((e as Error).message === "Unauthorized") {
-          navigate("/");
-        } else {
-          showToast((e as Error).message, {
-            duration: 3000,
-          });
-        }
+        showToast((e as Error).message, {
+          duration: 3000,
+        });
       }
     }
     requestLoggedInUser();
@@ -36,6 +32,7 @@ export function Header() {
         <button
           className="button"
           onClick={() => {
+            console.log(`oi`);
             navigate("/");
             localStorage.clear();
           }}

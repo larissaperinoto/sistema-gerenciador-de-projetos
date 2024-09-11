@@ -12,27 +12,15 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/" element={<Login />} />
       <Route
         path="/dashboard"
-        element={
-          isAuthenticated ? (
-            <Main content={<Projects />} />
-          ) : (
-            <Navigate to="/" />
-          )
-        }
+        element={isAuthenticated && <Main content={<Projects />} />}
       />
       <Route
         path="/project/:projectId/members"
-        element={
-          isAuthenticated ? (
-            <Main content={<ProjectTeam />} />
-          ) : (
-            <Navigate to="/" />
-          )
-        }
+        element={isAuthenticated && <Main content={<ProjectTeam />} />}
       />
     </Routes>
   );

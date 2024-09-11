@@ -108,7 +108,10 @@ export function Register() {
         </button>
         <button
           type="button"
-          onClick={() => navigate("/")}
+          onClick={() => {
+            console.log(`oi`);
+            navigate("/");
+          }}
           className="button button-gray width-total"
         >
           Voltar

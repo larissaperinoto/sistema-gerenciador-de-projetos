@@ -109,13 +109,9 @@ export function ProjectForm({ project, onClose }: ProjectFormProps) {
       }
       onClose(false);
     } catch (e) {
-      if ((e as Error).message === "Unauthorized") {
-        navigate("/");
-      } else {
-        showToast((e as Error).message, {
-          duration: 3000,
-        });
-      }
+      showToast((e as Error).message, {
+        duration: 3000,
+      });
     }
   }
 

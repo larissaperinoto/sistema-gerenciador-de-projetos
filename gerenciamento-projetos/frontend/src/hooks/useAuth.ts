@@ -14,16 +14,18 @@ export function useAuth() {
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
+          console.log(`oi3`);
           navigate("/");
         }
       } catch (error) {
         setIsAuthenticated(false);
+        console.log(`oi4`);
         navigate("/");
       }
     };
 
     checkAuth();
-  }, [navigate]);
+  }, []);
 
   return { isAuthenticated };
 }

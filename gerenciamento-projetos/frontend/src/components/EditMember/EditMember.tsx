@@ -23,13 +23,9 @@ export function EditMember({ member, onClose }: IEditMember) {
       setUser(null);
       onClose(false);
     } catch (e) {
-      if ((e as Error).message === "Unauthorized") {
-        navigate("/");
-      } else {
-        showToast((e as Error).message, {
-          duration: 6000,
-        });
-      }
+      showToast((e as Error).message, {
+        duration: 6000,
+      });
     }
   }
 

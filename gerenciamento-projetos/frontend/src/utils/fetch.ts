@@ -28,7 +28,8 @@ export async function fetchData(
   }
 
   if (res.status === 401) {
-    throw new Error("Unauthorized");
+    console.log(`oi`);
+    window.location.href = "/";
   }
 
   const data = await res.json();

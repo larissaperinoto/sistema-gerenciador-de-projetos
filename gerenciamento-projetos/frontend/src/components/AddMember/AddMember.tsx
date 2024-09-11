@@ -26,13 +26,9 @@ export function AddMember({ onClose, members }: AddMemberProps) {
       await ProjectsService.getInstance().addMember(projectId, userId);
       setUsers((prev) => prev.filter(({ id }) => id !== userId));
     } catch (e) {
-      if ((e as Error).message === "Unauthorized") {
-        navigate("/");
-      } else {
-        showToast((e as Error).message, {
-          duration: 3000,
-        });
-      }
+      showToast((e as Error).message, {
+        duration: 3000,
+      });
     }
   }
 
@@ -53,13 +49,9 @@ export function AddMember({ onClose, members }: AddMemberProps) {
 
         setUsers(userList);
       } catch (e) {
-        if ((e as Error).message === "Unauthorized") {
-          navigate("/");
-        } else {
-          showToast((e as Error).message, {
-            duration: 3000,
-          });
-        }
+        showToast((e as Error).message, {
+          duration: 3000,
+        });
       }
     }
     requestUsers();
