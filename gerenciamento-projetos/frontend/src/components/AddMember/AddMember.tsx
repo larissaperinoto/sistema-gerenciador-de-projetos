@@ -19,6 +19,7 @@ export function AddMember({ onClose, members }: AddMemberProps) {
 
   const [email, setEmail] = useState<string>();
   const [users, setUsers] = useState<UserType[]>([]);
+  const [filtered, setFiltered] = useState<UserType[]>([]);
 
   async function handleAddProjectMember(projectId: string, userId: string) {
     try {
@@ -64,7 +65,16 @@ export function AddMember({ onClose, members }: AddMemberProps) {
     requestUsers();
   }, []);
 
-  async function handleFindUser() {}
+  useEffect(() => {
+    if (email?.length) {
+      const list = users.filter(({ email: userEmail }) =>
+        userEmail.includes(email)
+      );
+      setFiltered(list);
+    } else {
+      setFiltered([]);
+    }
+  }, [email]);
 
   return (
     <div className="modal-container">
@@ -88,24 +98,26 @@ export function AddMember({ onClose, members }: AddMemberProps) {
         </form>
         <table>
           <tbody>
-            {users.map(({ id, name, email, role }) => {
-              return (
-                <tr key={id}>
-                  <td>{name}</td>
-                  <td>{email}</td>
-                  <td>{role}</td>
-                  <td>
-                    <button
-                      type="button"
-                      className="button"
-                      onClick={() => handleAddProjectMember(projectId!, id!)}
-                    >
-                      + Adicionar
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+            {(filtered.length ? filtered : users).map(
+              ({ id, name, email, role }) => {
+                return (
+                  <tr key={id}>
+                    <td>{name}</td>
+                    <td>{email}</td>
+                    <td>{role}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="button"
+                        onClick={() => handleAddProjectMember(projectId!, id!)}
+                      >
+                        + Adicionar
+                      </button>
+                    </td>
+                  </tr>
+                );
+              }
+            )}
           </tbody>
         </table>
       </div>
