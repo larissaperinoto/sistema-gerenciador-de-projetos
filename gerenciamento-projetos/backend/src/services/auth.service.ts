@@ -63,7 +63,7 @@ export class AuthService implements IAuthService {
       return {
         status: httpStatus.BadRequest,
         message: {
-          error: "Invalid credentials.",
+          error: "Credenciais inválidas.",
         },
       };
     }
@@ -74,7 +74,7 @@ export class AuthService implements IAuthService {
       return {
         status: httpStatus.BadRequest,
         message: {
-          error: "Invalid credentials.",
+          error: "Credenciais inválidas.",
         },
       };
     }

@@ -46,7 +46,7 @@ export class ProjectsUsersService implements IProjectsUsersService {
     if (!users.length) {
       return {
         status: httpStatus.NotFound,
-        message: { error: "There are no registered users for this project." },
+        message: { error: "Não há usuários associados a este projeto." },
       };
     }
 
@@ -64,7 +64,7 @@ export class ProjectsUsersService implements IProjectsUsersService {
     if (!user.message) {
       return {
         status: httpStatus.NotFound,
-        message: { error: "User not found." },
+        message: { error: "Usuário não encontrado." },
       };
     }
 
@@ -73,7 +73,7 @@ export class ProjectsUsersService implements IProjectsUsersService {
     if (!project.message) {
       return {
         status: httpStatus.NotFound,
-        message: { error: "Project not found." },
+        message: { error: "Projeto não encontrado." },
       };
     }
 
