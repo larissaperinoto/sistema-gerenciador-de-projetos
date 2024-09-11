@@ -1,68 +1,9 @@
-.project-container {
-  padding: 20px;
-  max-width: 100%;
-  overflow-x: auto;
-  margin: 0 auto;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.project-container h1 {
-  font-size: 2rem;
-  margin-bottom: 15px;
+.project-info-container {
   color: #333;
-}
-
-.project-description {
   font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 20px;
+  line-height: 30px;
 }
 
-.project-infos {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.project-info {
-  font-size: 1rem;
-  color: #555;
-}
-
-.project-members-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.project-members-table th,
-.project-members-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.project-members-table th {
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-.project-members-table-body tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.project-members-table-body tr:hover {
-  background-color: #f1f1f1;
-}
-
-.button-position {
-  position: fixed;
-  top: 200px;
-  right: 20px;
-  padding: 10px 15px;
-  font-size: 16px;
-  z-index: 1000;
+.add-member-button {
+  align-self: flex-end;
 }

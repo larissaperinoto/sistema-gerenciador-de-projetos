@@ -53,9 +53,9 @@ export function Projects() {
   }, [showProjectForm]);
 
   return (
-    <div className="projects-table-container">
-      <div className="project-table-container-2">
-        <h1>Projetos</h1>
+    <div className="container">
+      <div className="container-flex">
+        <h1 className="title-h1">Projetos</h1>
         <button
           type="button"
           className="button button-blue"

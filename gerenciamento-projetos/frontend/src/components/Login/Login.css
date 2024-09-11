@@ -7,13 +7,6 @@
   background-color: #f4f4f9;
 }
 
-.login-container h1 {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
 .login-form {
   display: flex;
   flex-direction: column;

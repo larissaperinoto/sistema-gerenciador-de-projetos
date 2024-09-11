@@ -41,7 +41,7 @@ export function Login() {
 
   return (
     <div className="login-container">
-      <h1>Gerenciador de Projetos</h1>
+      <h1 className="title-h1">Gerenciador de Projetos</h1>
       <form className="login-form">
         <input
           type="email"

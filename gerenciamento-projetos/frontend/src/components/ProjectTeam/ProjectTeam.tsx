@@ -66,20 +66,35 @@ export function ProjectTeam() {
   }, [showAddMemberModal, showEditUserModal]);
 
   return (
-    <div className="project-container">
-      <h1>{project?.name}</h1>
-      <p className="project-description">{`${project?.description}`}</p>
-      <div className="project-infos">
-        <p className="project-info">{`Data de início: ${formatDateToString(
-          project?.startDate
-        )}`}</p>
-        <p className="project-info">{`Data de finalização: ${formatDateToString(
-          project?.endDate
-        )}`}</p>
-        <p className="project-info">{`Status: ${project?.status}`}</p>
+    <div className="container">
+      <div className="container-flex">
+        <div className="project-info-container">
+          <button
+            type="button"
+            className="button-inline"
+            onClick={() => navigate("/dashboard")}
+          >
+            {`<- Projetos`}
+          </button>
+          <h1 className="title-h1">{project?.name}</h1>
+          <p>{`${project?.description}`}</p>
+
+          <p>
+            <strong>Data de início: </strong>
+            {formatDateToString(project?.startDate)}
+          </p>
+          <p>
+            <strong>Data de finalização: </strong>
+            {formatDateToString(project?.endDate)}
+          </p>
+          <p>
+            <strong>Status: </strong>
+            {project?.status}
+          </p>
+        </div>
         <button
           type="button"
-          className="button button-blue button-position"
+          className="button button-blue add-member-button"
           onClick={() => setShowAddMemberModal(true)}
         >
           + Adicionar Membro

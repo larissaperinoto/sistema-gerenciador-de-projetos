@@ -3,6 +3,18 @@
   width: 100%;
 }
 
+.container {
+  width: 98%;
+  margin: 0 auto;
+}
+
+.container-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 /* Estilos para botões */
 
 .button {
@@ -12,6 +24,14 @@
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+}
+
+.button-inline {
+  padding: 10px 0;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #333;
 }
 
 .button-green {
@@ -50,15 +70,6 @@
   background-color: #5a6268;
 }
 
-.button-top-right {
-  position: fixed;
-  top: 200px;
-  right: 20px;
-  padding: 10px 15px;
-  font-size: 16px;
-  z-index: 1000;
-}
-
 /* Estilos para modal */
 
 .modal {
@@ -85,7 +96,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .modal-close-button {
@@ -163,4 +174,11 @@
   font-size: 16px;
   color: #333;
   text-align: center;
+}
+
+.title-h1 {
+  text-align: start;
+  color: #333;
+  margin: 20px 0;
+  font-size: 28px;
 }

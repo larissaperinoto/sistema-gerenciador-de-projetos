@@ -63,7 +63,7 @@ export function Register() {
 
   return (
     <div className="register-container">
-      <h1>Cadastro de usuário</h1>
+      <h1 className="title-h1">Cadastro de usuário</h1>
       <form className="register-form">
         <input
           type="email"
