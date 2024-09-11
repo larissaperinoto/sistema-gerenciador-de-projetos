@@ -19,12 +19,14 @@ export function Login() {
       showToast("Insira um e-mail para prosseguir.", {
         duration: 3000,
       });
+      return;
     }
 
     if (!password) {
       showToast("Insira um password para prosseguir.", {
         duration: 3000,
       });
+      return;
     }
 
     try {
@@ -69,7 +71,7 @@ export function Login() {
           className="button button-green width-total"
           onClick={() => navigate("/register")}
         >
-          Cria conta
+          Cadastrar
         </button>
       </form>
       <Toast message={message} onClose={() => showToast(null)} />
