@@ -154,3 +154,12 @@
   flex-direction: column;
   gap: 10px;
 }
+
+/* Estilos para texto */
+
+.text {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+}

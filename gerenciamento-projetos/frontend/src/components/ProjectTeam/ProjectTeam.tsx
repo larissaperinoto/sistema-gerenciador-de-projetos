@@ -87,7 +87,7 @@ export function ProjectTeam() {
       </div>
 
       <table className="table">
-        <thead className="projects-members-table-header">
+        <thead className="table-header">
           <tr>
             <th>Nome</th>
             <th>Email</th>
@@ -95,15 +95,15 @@ export function ProjectTeam() {
             <th>Ações</th>
           </tr>
         </thead>
-        <tbody className="projects-members-table-body">
+        <tbody className="table-body">
           {members.map(({ id, name, email, role }) => {
             return (
               <tr key={id}>
-                <th>{name}</th>
-                <th>{email}</th>
-                <th>{role}</th>
+                <td>{name}</td>
+                <td>{email}</td>
+                <td>{role}</td>
 
-                <th className="table-flex-cell">
+                <td className="table-flex-cell">
                   <button
                     type="button"
                     className="button button-green"
@@ -129,7 +129,7 @@ export function ProjectTeam() {
                   >
                     Excluir
                   </button>
-                </th>
+                </td>
               </tr>
             );
           })}

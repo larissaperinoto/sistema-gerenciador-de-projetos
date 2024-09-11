@@ -91,18 +91,18 @@ export function AddMember({ onClose, members }: AddMemberProps) {
             {users.map(({ id, name, email, role }) => {
               return (
                 <tr key={id}>
-                  <th>{name}</th>
-                  <th>{email}</th>
-                  <th>{role}</th>
-                  <th>
+                  <td>{name}</td>
+                  <td>{email}</td>
+                  <td>{role}</td>
+                  <td>
                     <button
                       type="button"
-                      className="button button-blue"
+                      className="button"
                       onClick={() => handleAddProjectMember(projectId!, id!)}
                     >
                       + Adicionar
                     </button>
-                  </th>
+                  </td>
                 </tr>
               );
             })}

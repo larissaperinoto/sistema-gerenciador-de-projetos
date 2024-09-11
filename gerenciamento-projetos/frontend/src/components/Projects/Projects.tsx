@@ -54,18 +54,20 @@ export function Projects() {
 
   return (
     <div className="projects-table-container">
-      <h1>Projetos</h1>
-      <button
-        type="button"
-        className="button button-blue add-project-button-position"
-        onClick={() => setShowProjectForm(true)}
-      >
-        + Adicionar
-      </button>
+      <div className="project-table-container-2">
+        <h1>Projetos</h1>
+        <button
+          type="button"
+          className="button button-blue"
+          onClick={() => setShowProjectForm(true)}
+        >
+          + Adicionar
+        </button>
+      </div>
       <table className="table">
-        <thead>
+        <thead className="table-header">
           <tr>
-            <th>Projeto</th>
+            <th>Nome</th>
             <th>Descrição</th>
             <th>Início</th>
             <th>Fim</th>
@@ -79,12 +81,12 @@ export function Projects() {
             ({ id, name, description, startDate, endDate, status }) => {
               return (
                 <tr key={id}>
-                  <th>{name}</th>
-                  <th>{description}</th>
-                  <th>{formatDateToString(startDate)}</th>
-                  <th>{formatDateToString(endDate)}</th>
-                  <th>{status}</th>
-                  <th className="table-flex-cell">
+                  <td>{name}</td>
+                  <td>{description}</td>
+                  <td>{formatDateToString(startDate)}</td>
+                  <td>{formatDateToString(endDate)}</td>
+                  <td>{status}</td>
+                  <td className="table-flex-cell">
                     <button
                       type="button"
                       className="button button-green"
@@ -119,8 +121,8 @@ export function Projects() {
                     >
                       Excluir
                     </button>
-                  </th>
-                  <th>
+                  </td>
+                  <td>
                     <button
                       type="button"
                       className="button"
@@ -128,7 +130,7 @@ export function Projects() {
                     >
                       Ver membros
                     </button>
-                  </th>
+                  </td>
                 </tr>
               );
             }
